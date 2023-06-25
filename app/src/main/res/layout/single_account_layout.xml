@@ -42,6 +42,8 @@
             android:layout_width="wrap_content"
             app:thumbIcon="@drawable/checked_icon"
             android:layout_height="wrap_content"
+            app:trackTint="@color/green"
+            android:checked="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
