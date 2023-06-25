@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home_btn"
+        android:icon="@drawable/home"
+        android:title="@string/home" />
+
+    <item
+        android:id="@+id/radar_btn"
+        android:icon="@drawable/radar"
+        android:title="@string/radar" />
+
+    <item
+        android:id="@+id/add_btn"
+        android:icon="@drawable/add"
+        android:title="@string/add" />
+
+    <item
+        android:id="@+id/profile_btn"
+        android:icon="@drawable/user"
+        android:title="@string/profile" />
+
+    <item
+        android:id="@+id/history_btn"
+        android:icon="@drawable/time_left"
+        android:title="@string/history" />
+
+
+</menu>
