@@ -50,4 +50,6 @@ dependencies {
     //Lottie animation
     def lottieVersion = "3.4.0"
     implementation "com.airbnb.android:lottie:$lottieVersion"
+    //dropdown menu dependency
+    implementation "com.github.skydoves:powerspinner:1.2.6"
 }

@@ -46,15 +46,15 @@ public class HomeFragment extends Fragment {
                 new FirebaseRecyclerOptions.Builder<ProfileModel>()
                         .setQuery(databaseReference.child("facebook"), ProfileModel.class)
                         .build();
-        Log.d("Options", "onCreateView: "+options);
+        Log.d("Options", "onCreateView: " + options);
         adapter = new ProfileAdapter(options);
-        Log.d("adapter", "onCreateView: "+adapter);
-        recyclerView.setAdapter(adapter);
-
+        Log.d("adapter", "onCreateView: " + adapter);
+//        recyclerView.setAdapter(adapter);
         return view;
     }
 
     @Override
+
     public void onStart() {
         super.onStart();
         adapter.startListening();

@@ -10,18 +10,23 @@
     <string name="greeting">Hi!</string>
     <string name="user_name">Robert W</string>
     <string name="notification_desc">notification icon desc</string>
-    <string name="qr_btn">qr btn discreption</string>
+    <string name="qr_btn">qr btn description</string>
     <string name="search_btn_desc">search btn desc</string>
     <string name="home">Home</string>
     <string name="radar">Radar\n</string>
     <string name="add">Add</string>
     <string name="profile">Profile</string>
     <string name="history">History\n</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search">Search</string>
     <string name="all_saved_profiles">All Saved Profiles</string>
     <string name="social_media_name">Facebook</string>
+    <string name="back_btn">add page back button</string>
+    <string name="add_account_activity_id">Add Account</string>
+    <string name="social_share_default_icon">Social share default icon</string>
+    <string name="account_name">Account Name</string>
+    <string name="enter_account_name">Select account name</string>
 
 
 </resources>
