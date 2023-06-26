@@ -1,14 +1,11 @@
-package com.sharebysocial.com.Activity;
+package com.sharebysocial.com.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationBarView;
 import com.sharebysocial.com.Fragment.AddFragment;

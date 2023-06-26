@@ -1,4 +1,4 @@
-package com.sharebysocial.com.Activity;
+package com.sharebysocial.com.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,7 +8,6 @@ import android.os.Handler;
 
 import com.sharebysocial.com.Helper.AnimationR;
 import com.sharebysocial.com.Helper.Helper;
-
 import com.sharebysocial.com.databinding.ActivitySplashBinding;
 
 public class SplashScreen extends AppCompatActivity {
