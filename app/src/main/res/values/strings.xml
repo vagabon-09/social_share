@@ -33,6 +33,7 @@
     <string name="cancle">Cancle</string>
     <string name="save">Save\n</string>
     <string name="save_btn">Save</string>
+    <string name="user_name_hint">User Name</string>
 
 
 </resources>

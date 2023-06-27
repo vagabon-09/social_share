@@ -1,23 +1,29 @@
 package com.sharebysocial.com.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.sharebysocial.com.Helper.Helper;
 import com.sharebysocial.com.R;
+import com.sharebysocial.com.db.AddAccountDb;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class AddFragment extends Fragment {
 
@@ -28,7 +34,9 @@ public class AddFragment extends Fragment {
     private ImageView profileImage;
     private EditText profileFindId;
     private TextView userIdTitle;
-
+    private Spinner profile_spinner;
+    private int p;
+    private Helper helper;
 
     public AddFragment() {
         // Required empty public constructor
@@ -60,116 +68,143 @@ public class AddFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add, container, false);
         profileImage = view.findViewById(R.id.ProfileIconId);
         profileFindId = view.findViewById(R.id.profile_find_id);
-        Spinner profile_spinner = view.findViewById(R.id.profile_spinner_id);
+        profile_spinner = view.findViewById(R.id.profile_spinner_id);
         userIdTitle = view.findViewById(R.id.add_activity_user_name_id);
-        // Setting content to dropdown list
+        helper = new Helper();
+        /*
+        Setting content to dropdown list and we are getting
+        the position of the selected item from the dropdown list
+        */
+
         SetDropDown(profile_spinner);
+        getAndSendData(view);
 
         return view;
     }
 
-    public void selectProfile(int position, View view) {
+    public void getAndSendData(View v) {
+        Button sendData = v.findViewById(R.id.accountSendDataId);
+        Button cancelData = v.findViewById(R.id.cancle_btn_id);
+        sendData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String getUserName = profileFindId.getText().toString();
+                SendData(p, getUserName);
+                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                helper.replaceFragment(fragmentManager, new HomeFragment(), R.id.containerId);
+//                Log.d("UerDetails", "onClick: " + p + " " + profileFindId.getText().toString());
+            }
+        });
+        cancelData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
 
+    }
+
+    public void selectProfile(int position, View view) {
+        p = position;
         if (position == 0) {
             profileImage.setImageResource(R.drawable.share);
-            userIdTitle.setText("User Name");
+            userIdTitle.setText(R.string.user_name_hint);
             profileFindId.setHint("user@123");
         }
 
         if (position == 1) {
             profileImage.setImageResource(R.drawable.facebook);
-            userIdTitle.setText("User Name");
+            userIdTitle.setText(R.string.user_name_hint);
             profileFindId.setHint("user@123");
         }
 
         if (position == 2) {
             profileImage.setImageResource(R.drawable.instagram);
-            userIdTitle.setText("User Name");
+            userIdTitle.setText(R.string.user_name_hint);
             profileFindId.setHint("user@123");
         }
         if (position == 3) {
             profileImage.setImageResource(R.drawable.github);
-            userIdTitle.setText("User Name");
+            userIdTitle.setText(R.string.user_name_hint);
             profileFindId.setHint("user@123");
         }
         if (position == 4) {
             profileImage.setImageResource(R.drawable.twitter);
-            userIdTitle.setText("User Name");
+            userIdTitle.setText(R.string.user_name_hint);
             profileFindId.setHint("user@123");
         }
         if (position == 5) {
             profileImage.setImageResource(R.drawable.snapchat);
-            userIdTitle.setText("User Name");
+            userIdTitle.setText(R.string.user_name_hint);
             profileFindId.setHint("user@123");
         }
         if (position == 6) {
             profileImage.setImageResource(R.drawable.whatsapp);
-            userIdTitle.setText("User Name");
+            userIdTitle.setText(R.string.user_name_hint);
             profileFindId.setHint("user@123");
         }
         if (position == 7) {
             profileImage.setImageResource(R.drawable.reddit);
-            userIdTitle.setText("User Name");
+            userIdTitle.setText(R.string.user_name_hint);
             profileFindId.setHint("user@123");
         }
         if (position == 8) {
             profileImage.setImageResource(R.drawable.linkedin);
-            userIdTitle.setText("User Name");
+            userIdTitle.setText(R.string.user_name_hint);
             profileFindId.setHint("user@123");
         }
         if (position == 9) {
             profileImage.setImageResource(R.drawable.tik_tok);
-            userIdTitle.setText("User Name");
+            userIdTitle.setText(R.string.user_name_hint);
             profileFindId.setHint("user@123");
         }
         if (position == 10) {
             profileImage.setImageResource(R.drawable.youtube);
-            userIdTitle.setText("User Name");
+            userIdTitle.setText(R.string.user_name_hint);
             profileFindId.setHint("user@123");
         }
         if (position == 11) {
             profileImage.setImageResource(R.drawable.pinterest);
-            userIdTitle.setText("User Name");
+            userIdTitle.setText(R.string.user_name_hint);
             profileFindId.setHint("user@123");
         }
         if (position == 12) {
             profileImage.setImageResource(R.drawable.quora);
-            userIdTitle.setText("User Name");
+            userIdTitle.setText(R.string.user_name_hint);
             profileFindId.setHint("user@123");
         }
         if (position == 13) {
             profileImage.setImageResource(R.drawable.tumblr);
-            userIdTitle.setText("User Name");
+            userIdTitle.setText(R.string.user_name_hint);
             profileFindId.setHint("user@123");
         }
         if (position == 14) {
             profileImage.setImageResource(R.drawable.twitch);
-            userIdTitle.setText("User Name");
+            userIdTitle.setText(R.string.user_name_hint);
             profileFindId.setHint("user@123");
         }
         if (position == 15) {
             profileImage.setImageResource(R.drawable.discord);
-            userIdTitle.setText("User Name");
+            userIdTitle.setText(R.string.user_name_hint);
             profileFindId.setHint("user@123");
         }
         if (position == 16) {
             profileImage.setImageResource(R.drawable.mastodon);
-            userIdTitle.setText("User Name");
+            userIdTitle.setText(R.string.user_name_hint);
             profileFindId.setHint("user@123");
         }
         if (position == 17) {
             profileImage.setImageResource(R.drawable.vkontakte);
-            userIdTitle.setText("User Name");
+            userIdTitle.setText(R.string.user_name_hint);
             profileFindId.setHint("user@123");
         }
         if (position == 18) {
             profileImage.setImageResource(R.drawable.sina_weibo);
-            userIdTitle.setText("User Name");
+            userIdTitle.setText(R.string.user_name_hint);
             profileFindId.setHint("user@123");
         }
         if (position == 19) {
             profileImage.setImageResource(R.drawable.kakao_talk);
-            userIdTitle.setText("User Name");
+            userIdTitle.setText(R.string.user_name_hint);
             profileFindId.setHint("user@123");
         }
         if (position == 20) {
@@ -187,6 +222,10 @@ public class AddFragment extends Fragment {
         }
 
 
+    }
+
+    public void SendData(int position, String userName) {
+        AddAccountDb accountDb = new AddAccountDb(profile_spinner.getItemAtPosition(position).toString(), userName, getContext());
     }
 
     private void SetDropDown(Spinner profile_spinner) {
@@ -218,10 +257,13 @@ public class AddFragment extends Fragment {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, arrayList);
         profile_spinner.setAdapter(arrayAdapter);
         profile_spinner.setSelection(0);
+
+
         profile_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectProfile(position, view);
+                p = position;
             }
 
             @Override
