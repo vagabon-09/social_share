@@ -110,7 +110,8 @@
             android:layout_weight="1"
             android:background="@drawable/cancle_btn"
             android:text="@string/cancle"
-            android:textColor="@color/blue" />
+            android:textColor="@color/blue"
+             />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/accountSendDataId"

@@ -20,8 +20,8 @@ public class Helper {
                 .replace(replace, fragment)
                 .addToBackStack(null)
                 .commit();
-    }
 
+    }
 
 
 }

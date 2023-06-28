@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,6 +38,8 @@ public class AddFragment extends Fragment {
     private Spinner profile_spinner;
     private int p;
     private Helper helper;
+    private ImageView backBtn;
+    private Button cancelData;
 
     public AddFragment() {
         // Required empty public constructor
@@ -64,13 +67,21 @@ public class AddFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        /*  Inflate the layout for this fragment*/
         View view = inflater.inflate(R.layout.fragment_add, container, false);
         profileImage = view.findViewById(R.id.ProfileIconId);
         profileFindId = view.findViewById(R.id.profile_find_id);
         profile_spinner = view.findViewById(R.id.profile_spinner_id);
         userIdTitle = view.findViewById(R.id.add_activity_user_name_id);
+        backBtn = view.findViewById(R.id.add_page_back_btn);
         helper = new Helper();
+        /* Performing action according to the back button */
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPress();
+            }
+        });
         /*
         Setting content to dropdown list and we are getting
         the position of the selected item from the dropdown list
@@ -82,22 +93,34 @@ public class AddFragment extends Fragment {
         return view;
     }
 
+    public void onBackPress() {
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+
+        // Check if there are fragments in the back stack
+        if (fragmentManager.getBackStackEntryCount() > 0) {
+            // Pop the topmost fragment from the back stack
+            fragmentManager.popBackStack();
+        }
+    }
+
     public void getAndSendData(View v) {
         Button sendData = v.findViewById(R.id.accountSendDataId);
-        Button cancelData = v.findViewById(R.id.cancle_btn_id);
+        cancelData = v.findViewById(R.id.cancle_btn_id);
+
         sendData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String getUserName = profileFindId.getText().toString();
                 SendData(p, getUserName);
-                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-                helper.replaceFragment(fragmentManager, new HomeFragment(), R.id.containerId);
-//                Log.d("UerDetails", "onClick: " + p + " " + profileFindId.getText().toString());
+                onBackPress();
             }
         });
+        // This button use to clear all the selected data and set default data
         cancelData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                profileFindId.setText("");
+                profile_spinner.setSelection(0);
             }
         });
 
