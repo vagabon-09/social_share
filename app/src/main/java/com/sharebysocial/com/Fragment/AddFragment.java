@@ -75,6 +75,7 @@ public class AddFragment extends Fragment {
         userIdTitle = view.findViewById(R.id.add_activity_user_name_id);
         backBtn = view.findViewById(R.id.add_page_back_btn);
         helper = new Helper();
+
         /* Performing action according to the back button */
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +83,7 @@ public class AddFragment extends Fragment {
                 onBackPress();
             }
         });
+
         /*
         Setting content to dropdown list and we are getting
         the position of the selected item from the dropdown list

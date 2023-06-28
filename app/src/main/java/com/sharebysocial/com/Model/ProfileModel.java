@@ -1,22 +1,22 @@
 package com.sharebysocial.com.Model;
 
 public class ProfileModel {
-    private String sName, userName;
+    private String accountName, userName;
 
     public ProfileModel() {
     }
 
-    public ProfileModel(String sName, String userName) {
-        this.sName = sName;
+    public ProfileModel(String accountName, String userName) {
+        this.accountName = accountName;
         this.userName = userName;
     }
 
-    public String getsName() {
-        return sName;
+    public String getAccountName() {
+        return accountName;
     }
 
-    public void setsName(String sName) {
-        this.sName = sName;
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
     }
 
     public String getUserName() {

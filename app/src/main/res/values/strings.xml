@@ -35,5 +35,29 @@
     <string name="save_btn">Save</string>
     <string name="user_name_hint">User Name</string>
 
+    <!--    Application Name -->
+    <string name="fb">Facebook</string>
+    <string name="insta">Instagram</string>
+    <string name="git">GitHub</string>
+    <string name="twitter">Twitter</string>
+    <string name="snap">Snapchat</string>
+    <string name="whatsapp">Whatsapp</string>
+    <string name="reddit">Reddit</string>
+    <string name="linkedin">Linkedin</string>
+    <string name="tiktok">TikTok</string>
+    <string name="yt">YouTube</string>
+    <string name="pinterest">Pinterest</string>
+    <string name="quora">Quora</string>
+    <string name="tumblr">Tumblr</string>
+    <string name="twitch">Twitch</string>
+    <string name="discord">Discord</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="vkontakte">VKontakte</string>
+    <string name="weibo">Weibo</string>
+    <string name="talk">KakaoTalk</string>
+    <string name="web">Website</string>
+    <string name="email">Email</string>
+    <string name="other">Other</string>
+
 
 </resources>
