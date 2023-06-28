@@ -58,6 +58,8 @@
     <string name="web">Website</string>
     <string name="email">Email</string>
     <string name="other">Other</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit\n</string>
 
 
 </resources>

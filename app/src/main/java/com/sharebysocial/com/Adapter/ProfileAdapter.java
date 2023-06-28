@@ -1,5 +1,6 @@
 package com.sharebysocial.com.Adapter;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +11,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.materialswitch.MaterialSwitch;
+import com.sharebysocial.com.Activities.BottomSheetfFragment;
 import com.sharebysocial.com.Model.ProfileModel;
 import com.sharebysocial.com.R;
 
@@ -29,7 +34,13 @@ public class ProfileAdapter extends FirebaseRecyclerAdapter<ProfileModel, Profil
 
     @Override
     protected void onBindViewHolder(@NonNull ProfileAdapter.ProfileViewHolder holder, int position, @NonNull ProfileModel model) {
-        holder.materialCardView.setOnClickListener(v -> Toast.makeText(v.getContext(), "https://facebook/user/" + model.getUserName(), Toast.LENGTH_SHORT).show());
+        holder.materialCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomSheetDialogFragment bottomSheetDialogFragment = new BottomSheetfFragment();
+                bottomSheetDialogFragment.show((((AppCompatActivity) holder.appName.getContext()).getSupportFragmentManager()),bottomSheetDialogFragment.getTag());
+            }
+        });
         holder.visibilitySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
