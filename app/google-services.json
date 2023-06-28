@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "463608511718",
+    "project_id": "sharebysocial",
+    "storage_bucket": "sharebysocial.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:463608511718:android:b7f5e271a6005931ba8f27",
+        "android_client_info": {
+          "package_name": "com.sharebysocial.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "463608511718-t34mvj7gl8oin38gfp9t76j8b9jrgnep.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgiVLjCaJietZ6EcL9FrikPuRc2WChyXE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "463608511718-t34mvj7gl8oin38gfp9t76j8b9jrgnep.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
