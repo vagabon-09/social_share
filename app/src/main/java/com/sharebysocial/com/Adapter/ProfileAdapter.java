@@ -34,11 +34,12 @@ public class ProfileAdapter extends FirebaseRecyclerAdapter<ProfileModel, Profil
 
     @Override
     protected void onBindViewHolder(@NonNull ProfileAdapter.ProfileViewHolder holder, int position, @NonNull ProfileModel model) {
-        holder.materialCardView.setOnClickListener(new View.OnClickListener() {
+        holder.materialCardView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onLongClick(View v) {
                 BottomSheetDialogFragment bottomSheetDialogFragment = new BottomSheetfFragment();
-                bottomSheetDialogFragment.show((((AppCompatActivity) holder.appName.getContext()).getSupportFragmentManager()),bottomSheetDialogFragment.getTag());
+                bottomSheetDialogFragment.show((((AppCompatActivity) holder.appName.getContext()).getSupportFragmentManager()), bottomSheetDialogFragment.getTag());
+                return false;
             }
         });
         holder.visibilitySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

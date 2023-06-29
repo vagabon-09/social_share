@@ -60,6 +60,7 @@
     <string name="other">Other</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit\n</string>
+    <string name="delete_icon">delete icon</string>
 
 
 </resources>
