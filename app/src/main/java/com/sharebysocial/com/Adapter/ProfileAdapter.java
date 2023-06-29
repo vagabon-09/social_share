@@ -1,18 +1,18 @@
 package com.sharebysocial.com.Adapter;
 
-import android.content.Context;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -26,14 +26,24 @@ import com.sharebysocial.com.R;
 
 import java.util.Objects;
 
+
 public class ProfileAdapter extends FirebaseRecyclerAdapter<ProfileModel, ProfileAdapter.ProfileViewHolder> {
 
-    public ProfileAdapter(@NonNull FirebaseRecyclerOptions<ProfileModel> options) {
-        super(options);
-    }
+static BottomSheetfFragment fragment;
 
+    public ProfileAdapter(@NonNull FirebaseRecyclerOptions<ProfileModel> options,BottomSheetfFragment bottomSheetfFragment) {
+        super(options);
+        fragment = bottomSheetfFragment;
+
+    }
     @Override
     protected void onBindViewHolder(@NonNull ProfileAdapter.ProfileViewHolder holder, int position, @NonNull ProfileModel model) {
+//        holder.EditButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(fragment.getContext(), "Toast", Toast.LENGTH_SHORT).show();
+//            }
+//        });
         holder.materialCardView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -42,6 +52,8 @@ public class ProfileAdapter extends FirebaseRecyclerAdapter<ProfileModel, Profil
                 return false;
             }
         });
+
+
         holder.visibilitySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -54,7 +66,10 @@ public class ProfileAdapter extends FirebaseRecyclerAdapter<ProfileModel, Profil
             }
         });
         changeIconName(holder, model);
+        
+        
     }
+
 
     private void changeIconName(ProfileViewHolder holder, ProfileModel model) {
 
@@ -183,6 +198,7 @@ public class ProfileAdapter extends FirebaseRecyclerAdapter<ProfileModel, Profil
         MaterialSwitch visibilitySwitch;
         ImageView appIcon;
         TextView appName;
+        LinearLayout EditButton ;
 
         public ProfileViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -190,6 +206,7 @@ public class ProfileAdapter extends FirebaseRecyclerAdapter<ProfileModel, Profil
             visibilitySwitch = itemView.findViewById(R.id.visibilitySwitchId);
             appIcon = itemView.findViewById(R.id.appIconId);
             appName = itemView.findViewById(R.id.appNameId);
+//            EditButton = fragment.requireActivity().findViewById(R.id.editButtonId);
         }
     }
 }

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.sharebysocial.com.Activities.BottomSheetfFragment;
 import com.sharebysocial.com.Adapter.ProfileAdapter;
 import com.sharebysocial.com.Model.ProfileModel;
 import com.sharebysocial.com.R;
@@ -46,9 +47,10 @@ public class HomeFragment extends Fragment {
                 new FirebaseRecyclerOptions.Builder<ProfileModel>()
                         .setQuery(databaseReference, ProfileModel.class)
                         .build();
-        Log.d("Options", "onCreateView: " + options);
-        adapter = new ProfileAdapter(options);
-        Log.d("adapter", "onCreateView: " + adapter);
+//        Log.d("Options", "onCreateView: " + options);
+        BottomSheetfFragment fragment = new BottomSheetfFragment();
+        adapter = new ProfileAdapter(options,fragment);
+//        Log.d("adapter", "onCreateView: " + adapter);
         recyclerView.setAdapter(adapter);
         return view;
     }
