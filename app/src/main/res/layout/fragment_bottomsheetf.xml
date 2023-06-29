@@ -9,7 +9,7 @@
     <View
         android:layout_marginTop="@dimen/_10sdp"
         android:id="@+id/view"
-        android:layout_width="@dimen/_60sdp"
+        android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_10sdp"
         android:background="@drawable/line_shape"
         app:layout_constraintEnd_toEndOf="@+id/deleteBtnId"
