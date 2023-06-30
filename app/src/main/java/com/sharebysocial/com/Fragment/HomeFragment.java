@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
@@ -35,25 +36,22 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         recyclerView = view.findViewById(R.id.profileRecyclerViewId);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        FirebaseRecyclerOptions<ProfileModel> options =
-                new FirebaseRecyclerOptions.Builder<ProfileModel>()
-                        .setQuery(databaseReference, ProfileModel.class)
-                        .build();
+        FirebaseRecyclerOptions<ProfileModel> options = new FirebaseRecyclerOptions.Builder<ProfileModel>().setQuery(databaseReference, ProfileModel.class).build();
 //        Log.d("Options", "onCreateView: " + options);
         BottomSheetfFragment fragment = new BottomSheetfFragment();
-        adapter = new ProfileAdapter(options,fragment);
+        adapter = new ProfileAdapter(options);
 //        Log.d("adapter", "onCreateView: " + adapter);
         recyclerView.setAdapter(adapter);
         return view;
     }
+
 
     @Override
 
@@ -67,4 +65,5 @@ public class HomeFragment extends Fragment {
         super.onStop();
         adapter.stopListening();
     }
+
 }

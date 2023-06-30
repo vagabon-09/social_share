@@ -10,9 +10,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.FragmentManager;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -21,6 +24,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.sharebysocial.com.Activities.BottomSheetfFragment;
+import com.sharebysocial.com.Fragment.AddFragment;
+import com.sharebysocial.com.Fragment.HomeFragment;
+import com.sharebysocial.com.Helper.Helper;
 import com.sharebysocial.com.Model.ProfileModel;
 import com.sharebysocial.com.R;
 
@@ -29,30 +35,32 @@ import java.util.Objects;
 
 public class ProfileAdapter extends FirebaseRecyclerAdapter<ProfileModel, ProfileAdapter.ProfileViewHolder> {
 
-static BottomSheetfFragment fragment;
 
-    public ProfileAdapter(@NonNull FirebaseRecyclerOptions<ProfileModel> options,BottomSheetfFragment bottomSheetfFragment) {
+    public ProfileAdapter(@NonNull FirebaseRecyclerOptions<ProfileModel> options) {
         super(options);
-        fragment = bottomSheetfFragment;
 
     }
+
     @Override
     protected void onBindViewHolder(@NonNull ProfileAdapter.ProfileViewHolder holder, int position, @NonNull ProfileModel model) {
-//        holder.EditButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(fragment.getContext(), "Toast", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-        holder.materialCardView.setOnLongClickListener(new View.OnLongClickListener() {
+        holder.materialCardView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
-                BottomSheetDialogFragment bottomSheetDialogFragment = new BottomSheetfFragment();
-                bottomSheetDialogFragment.show((((AppCompatActivity) holder.appName.getContext()).getSupportFragmentManager()), bottomSheetDialogFragment.getTag());
-                return false;
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "Clicked", Toast.LENGTH_SHORT).show();
             }
         });
 
+        /*
+        holder.materialCardView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+              BottomSheetDialogFragment bottomSheetDialogFragment = new BottomSheetfFragment();
+                bottomSheetDialogFragment.show((((AppCompatActivity) holder.appName.getContext()).getSupportFragmentManager()), bottomSheetDialogFragment.getTag());
+
+                return false;
+            }
+        });
+         */
 
         holder.visibilitySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -66,8 +74,8 @@ static BottomSheetfFragment fragment;
             }
         });
         changeIconName(holder, model);
-        
-        
+
+
     }
 
 
@@ -198,7 +206,7 @@ static BottomSheetfFragment fragment;
         MaterialSwitch visibilitySwitch;
         ImageView appIcon;
         TextView appName;
-        LinearLayout EditButton ;
+        LinearLayout EditButton;
 
         public ProfileViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -206,7 +214,6 @@ static BottomSheetfFragment fragment;
             visibilitySwitch = itemView.findViewById(R.id.visibilitySwitchId);
             appIcon = itemView.findViewById(R.id.appIconId);
             appName = itemView.findViewById(R.id.appNameId);
-//            EditButton = fragment.requireActivity().findViewById(R.id.editButtonId);
         }
     }
 }
