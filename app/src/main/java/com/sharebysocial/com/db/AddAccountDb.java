@@ -21,7 +21,7 @@ public class AddAccountDb {
 
 
             model = new AccountModel(accountName, userName);
-            database = FirebaseDatabase.getInstance().getReference().child(accountName);
+            database = FirebaseDatabase.getInstance().getReference().child("ProfileInformation").child(accountName);
             database.setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void unused) {

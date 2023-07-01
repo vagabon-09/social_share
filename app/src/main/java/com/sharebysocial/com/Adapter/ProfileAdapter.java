@@ -1,6 +1,7 @@
 package com.sharebysocial.com.Adapter;
 
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import com.google.android.material.materialswitch.MaterialSwitch;
 import com.sharebysocial.com.Activities.BottomSheetfFragment;
 import com.sharebysocial.com.Fragment.AddFragment;
 import com.sharebysocial.com.Fragment.HomeFragment;
+import com.sharebysocial.com.Fragment.ProfileFragment;
 import com.sharebysocial.com.Helper.Helper;
 import com.sharebysocial.com.Model.ProfileModel;
 import com.sharebysocial.com.R;
@@ -38,15 +40,15 @@ public class ProfileAdapter extends FirebaseRecyclerAdapter<ProfileModel, Profil
 
     public ProfileAdapter(@NonNull FirebaseRecyclerOptions<ProfileModel> options) {
         super(options);
-
     }
+
 
     @Override
     protected void onBindViewHolder(@NonNull ProfileAdapter.ProfileViewHolder holder, int position, @NonNull ProfileModel model) {
         holder.materialCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Clicked", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -54,13 +56,12 @@ public class ProfileAdapter extends FirebaseRecyclerAdapter<ProfileModel, Profil
         holder.materialCardView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-              BottomSheetDialogFragment bottomSheetDialogFragment = new BottomSheetfFragment();
+                BottomSheetDialogFragment bottomSheetDialogFragment = new BottomSheetfFragment();
                 bottomSheetDialogFragment.show((((AppCompatActivity) holder.appName.getContext()).getSupportFragmentManager()), bottomSheetDialogFragment.getTag());
-
                 return false;
             }
         });
-         */
+        */
 
         holder.visibilitySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

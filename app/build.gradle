@@ -52,4 +52,9 @@ dependencies {
     implementation "com.airbnb.android:lottie:$lottieVersion"
     //dropdown menu dependency
     implementation "com.github.skydoves:powerspinner:1.2.6"
+    // Circular Imageview dependency
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    // Google location
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+
 }

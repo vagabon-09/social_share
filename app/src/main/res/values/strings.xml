@@ -61,6 +61,8 @@
     <string name="delete">Delete</string>
     <string name="edit">Edit\n</string>
     <string name="delete_icon">delete icon</string>
+    <string name="search_sheet_title">Scanning Result...</string>
+    <string name="full_user_name">Allard Romania</string>
 
 
 </resources>

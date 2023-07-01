@@ -1,40 +1,27 @@
 package com.sharebysocial.com.Activities;
 
-import android.content.Context;
 import android.os.Bundle;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.LinearLayout;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.sharebysocial.com.Adapter.ProfileAdapter;
 import com.sharebysocial.com.R;
 
-public class BottomSheetfFragment extends BottomSheetDialogFragment   {
+public class BottomSheetfFragment extends BottomSheetDialogFragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     static LinearLayout DeleteButton;
     static LinearLayout EditButton;
 
 
-
     public BottomSheetfFragment() {
         // Required empty public constructor
     }
-
 
     // TODO: Rename and change types and number of parameters
     public static BottomSheetfFragment newInstance(String param1, String param2) {
@@ -89,9 +76,7 @@ public class BottomSheetfFragment extends BottomSheetDialogFragment   {
         EditButton = v.findViewById(R.id.editButtonId);
     }
 
-   // Doing operation to delete item from recycler view
-
-
+    // Doing operation to delete item from recycler view
 
 
 }

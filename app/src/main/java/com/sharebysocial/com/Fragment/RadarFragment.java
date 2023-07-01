@@ -3,15 +3,19 @@ package com.sharebysocial.com.Fragment;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.sharebysocial.com.Activities.BottomSheetfFragment;
 import com.sharebysocial.com.R;
 import com.sharebysocial.com.databinding.FragmentRadarBinding;
 
+import java.util.Objects;
 import java.util.zip.Inflater;
 
 public class RadarFragment extends Fragment {
@@ -52,7 +56,13 @@ public class RadarFragment extends Fragment {
         binding = FragmentRadarBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         setView();
+        showBottomSheet();
         return view;
+    }
+
+    private void showBottomSheet() {
+        SearchSheetFragment searchSheetFragment = new SearchSheetFragment();
+        searchSheetFragment.show((((AppCompatActivity) requireContext()).getSupportFragmentManager()),searchSheetFragment.getTag() );
     }
 
     private void setView() {

@@ -39,15 +39,13 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("ProfileInformation");
         recyclerView = view.findViewById(R.id.profileRecyclerViewId);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         FirebaseRecyclerOptions<ProfileModel> options = new FirebaseRecyclerOptions.Builder<ProfileModel>().setQuery(databaseReference, ProfileModel.class).build();
-//        Log.d("Options", "onCreateView: " + options);
         BottomSheetfFragment fragment = new BottomSheetfFragment();
         adapter = new ProfileAdapter(options);
-//        Log.d("adapter", "onCreateView: " + adapter);
         recyclerView.setAdapter(adapter);
         return view;
     }
