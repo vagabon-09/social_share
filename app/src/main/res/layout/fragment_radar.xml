@@ -27,39 +27,37 @@
         app:lottie_rawRes="@raw/lottie_json" />
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_marginTop="@dimen/_5sdp"
-        app:cardCornerRadius="@dimen/_15sdp"
-
-        app:cardUseCompatPadding="false"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+
+        android:layout_marginTop="@dimen/_5sdp"
+        app:cardCornerRadius="@dimen/_15sdp"
+        app:cardUseCompatPadding="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radar_animation_id" >
+        app:layout_constraintTop_toBottomOf="@+id/radar_animation_id">
 
         <LinearLayout
-            android:backgroundTint="@android:color/transparent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:backgroundTint="@android:color/transparent"
             android:orientation="vertical">
+
             <TextView
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_margin="@dimen/_10sdp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:text="@string/search_sheet_title"
-                android:textSize="@dimen/_20sdp"/>
+                android:textSize="@dimen/_20sdp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/searchResultScanningId"
-                android:layout_margin="@dimen/_10sdp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp" />
         </LinearLayout>
-
-
-
 
 
     </com.google.android.material.card.MaterialCardView>

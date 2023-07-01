@@ -64,6 +64,23 @@
     <string name="search_sheet_title">Scanning Result...</string>
     <string name="full_user_name">Allard Romania</string>
     <string name="gettingLocation">Accessing Location...</string>
+    <string name="register_profile">Register Profile</string>
+    <string name="name">Name</string>
+    <string name="user_id">Vagabon</string>
+    <string name="email_id">Email Id</string>
+    <string name="sample_email">vagabon@gmail.com</string>
+    <string name="password_title">Password</string>
+    <string name="sample_password">********</string>
+    <string name="already_have_account">Already have a account ?</string>
+    <string name="done">Done</string>
+    <string name="or">or</string>
+    <string name="google_login">With Google</string>
+    <string name="login_profile">Login To Profile</string>
+    <string name="no_account">Don\'t have any account ?</string>
+    <string name="login_btn">Login</string>
+    <string name="sign_in">Sign In</string>
+    <string name="google">Google</string>
+    <string name="f_password">Forgot password ?</string>
 
 
 </resources>

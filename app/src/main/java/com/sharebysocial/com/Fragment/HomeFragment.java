@@ -25,7 +25,6 @@ public class HomeFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private ProfileAdapter adapter;
-    private DatabaseReference databaseReference;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -39,7 +38,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("ProfileInformation");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("ProfileInformation");
         recyclerView = view.findViewById(R.id.profileRecyclerViewId);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
