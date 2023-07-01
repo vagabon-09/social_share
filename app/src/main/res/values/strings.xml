@@ -63,6 +63,7 @@
     <string name="delete_icon">delete icon</string>
     <string name="search_sheet_title">Scanning Result...</string>
     <string name="full_user_name">Allard Romania</string>
+    <string name="gettingLocation">Accessing Location...</string>
 
 
 </resources>
