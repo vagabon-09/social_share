@@ -81,6 +81,8 @@
     <string name="sign_in">Sign In</string>
     <string name="google">Google</string>
     <string name="f_password">Forgot password ?</string>
+    <string name="google_sign_in">Google sign in icon</string>
+    <string name="google_title">Google</string>
 
 
 </resources>

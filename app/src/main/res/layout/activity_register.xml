@@ -107,7 +107,7 @@
             android:layout_marginEnd="@dimen/_20sdp"
             android:text="@string/already_have_account"
             android:textColor="@color/black"
-            android:textSize="@dimen/_13sdp" />
+            android:textSize="@dimen/_15sdp" />
 
         <Button
             android:layout_width="@dimen/_100sdp"
@@ -128,6 +128,7 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/googleRegisterBtnId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
@@ -140,16 +141,17 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/google_sign_in" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Google"
+                android:text="@string/google_title"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/imageView3"
-                app:layout_constraintHorizontal_bias="0.797"
+                app:layout_constraintHorizontal_bias="0.804"
                 app:layout_constraintStart_toStartOf="@+id/imageView3"
                 app:layout_constraintTop_toTopOf="parent" />
 
