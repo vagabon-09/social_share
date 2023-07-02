@@ -83,6 +83,12 @@
     <string name="f_password">Forgot password ?</string>
     <string name="google_sign_in">Google sign in icon</string>
     <string name="google_title">Google</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="night_mode">Night Mode</string>
+    <string name="report_issue">Report Issue</string>
+    <string name="rate_us">Rate Us</string>
+    <string name="about_us">About us?</string>
+    <string name="logout">logout</string>
 
 
 </resources>
