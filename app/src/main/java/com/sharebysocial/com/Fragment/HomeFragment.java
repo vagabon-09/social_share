@@ -2,21 +2,17 @@ package com.sharebysocial.com.Fragment;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.sharebysocial.com.Activities.BottomSheetfFragment;
 import com.sharebysocial.com.Adapter.ProfileAdapter;
 import com.sharebysocial.com.Model.ProfileModel;
 import com.sharebysocial.com.R;

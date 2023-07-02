@@ -1,4 +1,4 @@
-package com.sharebysocial.com.Activities;
+package com.sharebysocial.com.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -50,27 +50,10 @@ public class BottomSheetfFragment extends BottomSheetDialogFragment {
         View v = inflater.inflate(R.layout.fragment_bottomsheetf, container, false);
         /*In this function we are setting up all the button that can we perform all the jobs*/
         fId(v);
-//        buttonSheet();
         return v;
     }
 
-//    private void buttonSheet() {
-//        DeleteButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(requireContext(), "Delete button is clicked...", Toast.LENGTH_SHORT).show();
-//                dismiss();
-//            }
-//        });
-//
-//        EditButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(requireContext(), "Edit button is clicked....", Toast.LENGTH_SHORT).show();
-//                dismiss();
-//            }
-//        });
-//    }
+
 
     private void fId(View v) {
         DeleteButton = v.findViewById(R.id.deleteBtnId);

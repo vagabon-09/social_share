@@ -1,7 +1,6 @@
 package com.sharebysocial.com.Adapter;
 
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,28 +10,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.fragment.app.FragmentManager;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.materialswitch.MaterialSwitch;
-import com.sharebysocial.com.Activities.BottomSheetfFragment;
-import com.sharebysocial.com.Fragment.AddFragment;
-import com.sharebysocial.com.Fragment.HomeFragment;
-import com.sharebysocial.com.Fragment.ProfileFragment;
-import com.sharebysocial.com.Helper.Helper;
 import com.sharebysocial.com.Model.ProfileModel;
 import com.sharebysocial.com.R;
-
-import java.util.Objects;
 
 
 public class ProfileAdapter extends FirebaseRecyclerAdapter<ProfileModel, ProfileAdapter.ProfileViewHolder> {

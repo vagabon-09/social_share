@@ -1,6 +1,5 @@
 package com.sharebysocial.com.Activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -38,6 +37,11 @@ public class RegisterActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
 //        updateUI(currentUser);
+        if (currentUser != null) {
+            Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
 
@@ -109,6 +113,7 @@ public class RegisterActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         FirebaseUser user = mAuth.getCurrentUser();
+                        assert user != null;
                         updateUI(user);
 //                        Toast.makeText(this, "Login", Toast.LENGTH_SHORT).show();
                     } else {

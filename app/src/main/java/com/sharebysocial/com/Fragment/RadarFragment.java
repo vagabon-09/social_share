@@ -10,13 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.sharebysocial.com.Activities.BottomSheetfFragment;
-import com.sharebysocial.com.R;
 import com.sharebysocial.com.databinding.FragmentRadarBinding;
-
-import java.util.Objects;
-import java.util.zip.Inflater;
 
 public class RadarFragment extends Fragment {
     private FragmentRadarBinding binding;
@@ -62,7 +56,8 @@ public class RadarFragment extends Fragment {
 
     private void showBottomSheet() {
         SearchSheetFragment searchSheetFragment = new SearchSheetFragment();
-        searchSheetFragment.show((((AppCompatActivity) requireContext()).getSupportFragmentManager()),searchSheetFragment.getTag() );
+        searchSheetFragment.show((((AppCompatActivity) requireContext()).getSupportFragmentManager()), searchSheetFragment.getTag());
+        searchSheetFragment.setCancelable(false);
     }
 
     private void setView() {
