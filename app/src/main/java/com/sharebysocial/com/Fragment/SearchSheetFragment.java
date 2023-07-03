@@ -19,6 +19,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.sharebysocial.com.Model.LocationModel;
@@ -28,6 +29,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class SearchSheetFragment extends BottomSheetDialogFragment {
 
@@ -89,7 +91,7 @@ public class SearchSheetFragment extends BottomSheetDialogFragment {
                                 latitude = addresses.get(0).getLatitude();
                                 longitude = addresses.get(0).getLongitude();
                                 if (latitude != 0 && longitude != 0) {
-                                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("location");
+                                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).child("location");
                                     List<LocationModel> locationModelList = new ArrayList<>();
                                     locationModelList.add(new LocationModel(latitude, longitude));
                                     reference.setValue(locationModelList).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -98,7 +100,6 @@ public class SearchSheetFragment extends BottomSheetDialogFragment {
                                             dismiss();
                                         }
                                     });
-
                                 }
 
 

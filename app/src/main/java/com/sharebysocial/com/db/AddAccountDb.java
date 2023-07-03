@@ -6,6 +6,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.sharebysocial.com.Model.AccountModel;
@@ -15,13 +16,14 @@ import java.util.Objects;
 public class AddAccountDb {
     DatabaseReference database;
     AccountModel model;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     public AddAccountDb(String accountName, String userName, Context context) {
         if (!Objects.equals(accountName, "Select Profile")) {
 
 
             model = new AccountModel(accountName, userName);
-            database = FirebaseDatabase.getInstance().getReference().child("ProfileInformation").child(accountName);
+            database = FirebaseDatabase.getInstance().getReference().child(Objects.requireNonNull(mAuth.getUid())).child("ProfileInformation").child(accountName);
             database.setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void unused) {

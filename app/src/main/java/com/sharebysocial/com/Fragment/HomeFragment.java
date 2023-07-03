@@ -11,16 +11,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.sharebysocial.com.Adapter.ProfileAdapter;
 import com.sharebysocial.com.Model.ProfileModel;
 import com.sharebysocial.com.R;
 
+import java.util.Objects;
+
 public class HomeFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private ProfileAdapter adapter;
+    private FirebaseAuth mAuth;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -32,9 +36,10 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mAuth = FirebaseAuth.getInstance();
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("ProfileInformation");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Objects.requireNonNull(mAuth.getUid())).child("ProfileInformation");
         recyclerView = view.findViewById(R.id.profileRecyclerViewId);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
