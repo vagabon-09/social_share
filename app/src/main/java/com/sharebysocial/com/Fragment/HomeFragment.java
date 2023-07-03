@@ -61,22 +61,19 @@ public class HomeFragment extends Fragment {
     }
 
     private void updateHomePage(View view) {
-       profileImage = view.findViewById(R.id.profile_image_id);
-       userName = view.findViewById(R.id.user_name_id);
+        profileImage = view.findViewById(R.id.profile_image_id);
+        userName = view.findViewById(R.id.user_name_id);
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
                 .child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
                 .child("userProfileData")
                 .child("0");
 
-        databaseReference.get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
-            @Override
-            public void onSuccess(DataSnapshot dataSnapshot) {
-                String userName_s = Objects.requireNonNull(dataSnapshot.child("userName").getValue()).toString();
-                String uri =  Objects.requireNonNull(dataSnapshot.child("userImage").getValue()).toString();
-                Glide.with(requireContext()).load(uri).into(profileImage);
+        databaseReference.get().addOnSuccessListener(dataSnapshot -> {
+            String userName_s = Objects.requireNonNull(dataSnapshot.child("userName").getValue()).toString();
+            String uri = Objects.requireNonNull(dataSnapshot.child("userImage").getValue()).toString();
+            Glide.with(requireContext()).load(uri).into(profileImage);
 //                Log.d("UserDetails", "onSuccess: "+userName_s);
-                userName.setText(userName_s);
-            }
+            userName.setText(userName_s);
         });
 
     }
