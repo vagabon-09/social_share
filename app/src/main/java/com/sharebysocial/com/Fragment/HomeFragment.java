@@ -24,7 +24,6 @@ public class HomeFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private ProfileAdapter adapter;
-    private FirebaseAuth mAuth;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -36,7 +35,7 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Objects.requireNonNull(mAuth.getUid())).child("ProfileInformation");

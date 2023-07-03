@@ -14,13 +14,22 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.sharebysocial.com.Helper.Helper;
+import com.sharebysocial.com.Model.ProfileModel;
+import com.sharebysocial.com.Model.UserModel;
 import com.sharebysocial.com.R;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
     private TextView alreadyHaveAccount;
@@ -130,9 +139,18 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void updateUI(FirebaseUser user) {
-        Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
-        startActivity(intent);
-        finish();
+        List<UserModel> models = new ArrayList<>();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        models.add(new UserModel(user.getDisplayName(), user.getEmail(), Objects.requireNonNull(user.getPhotoUrl()).toString()));
+        databaseReference.child(Objects.requireNonNull(mAuth.getUid())).child("userProfileData").setValue(models).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
 }
