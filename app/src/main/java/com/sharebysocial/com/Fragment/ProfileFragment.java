@@ -7,16 +7,26 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.sharebysocial.com.Activities.SignUpActivity;
 import com.sharebysocial.com.R;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +45,8 @@ public class ProfileFragment extends Fragment {
     private String mParam2;
     private MaterialSwitch nightModeSwitch;
     private LinearLayout logoutBtn;
+    private ImageView profileImage;
+    private TextView profileName;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -60,15 +72,38 @@ public class ProfileFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         nightModeSetUp(view);
         logOutBtn(view);
+        fetchFirebaseData(view);
         return view;
     }
+
+    private void fetchFirebaseData(View view) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        reference.child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).child("userProfileData").child("0")
+                .get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+                    @Override
+                    public void onSuccess(DataSnapshot dataSnapshot) {
+                        setUi(dataSnapshot,view);
+                    }
+                });
+    }
+
+    private void setUi(DataSnapshot dataSnapshot,View view) {
+        profileImage = view.findViewById(R.id.profile_page_image_id);
+        profileName = view.findViewById(R.id.profile_page_user_name_id);
+//        Log.d("UserProfileData", "setUi: "+dataSnapshot.toString());
+        String pName = Objects.requireNonNull(dataSnapshot.child("userName").getValue()).toString();
+        String pImage = Objects.requireNonNull(dataSnapshot.child("userImage").getValue()).toString();
+//        Log.d("pName", "setUi: "+pName);
+        Glide.with(requireContext()).load(pImage).into(profileImage);
+        profileName.setText(pName);
+    }
+
 
     private void logOutBtn(View view) {
         logoutBtn = view.findViewById(R.id.logOutBtn);
@@ -81,6 +116,7 @@ public class ProfileFragment extends Fragment {
             }
         });
     }
+
     private void nightModeSetUp(View view) {
         // Accessing Button
         nightModeSwitch = view.findViewById(R.id.nightModeBtnId);

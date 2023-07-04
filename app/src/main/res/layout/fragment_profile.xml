@@ -7,7 +7,7 @@
     tools:context=".Fragment.ProfileFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_image_ida"
+        android:id="@+id/profile_page_image_id"
         android:layout_width="@dimen/_130sdp"
         android:layout_height="@dimen/_130sdp"
         android:layout_marginTop="@dimen/_10sdp"
@@ -19,16 +19,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/profile_page_user_name_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_20sdp"
         android:text="@string/user_name"
         android:textSize="@dimen/_20sdp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/profile_image_ida"
-        app:layout_constraintStart_toStartOf="@+id/profile_image_ida"
-        app:layout_constraintTop_toBottomOf="@+id/profile_image_ida" />
+        app:layout_constraintEnd_toEndOf="@+id/profile_page_image_id"
+        app:layout_constraintStart_toStartOf="@+id/profile_page_image_id"
+        app:layout_constraintTop_toBottomOf="@+id/profile_page_image_id" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5">
+        app:layout_constraintTop_toBottomOf="@+id/profile_page_user_name_id">
 
         <LinearLayout
             android:layout_width="match_parent"
