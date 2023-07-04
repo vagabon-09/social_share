@@ -88,12 +88,12 @@ public class ProfileFragment extends Fragment {
                 .get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
                     @Override
                     public void onSuccess(DataSnapshot dataSnapshot) {
-                        setUi(dataSnapshot,view);
+                        setUi(dataSnapshot, view);
                     }
                 });
     }
 
-    private void setUi(DataSnapshot dataSnapshot,View view) {
+    private void setUi(DataSnapshot dataSnapshot, View view) {
         profileImage = view.findViewById(R.id.profile_page_image_id);
         profileName = view.findViewById(R.id.profile_page_user_name_id);
 //        Log.d("UserProfileData", "setUi: "+dataSnapshot.toString());
