@@ -21,6 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.sharebysocial.com.Adapter.ProfileAdapter;
+import com.sharebysocial.com.Algorithm.NameFormation;
 import com.sharebysocial.com.Model.ProfileModel;
 import com.sharebysocial.com.Model.UserModel;
 import com.sharebysocial.com.R;
@@ -72,8 +73,13 @@ public class HomeFragment extends Fragment {
             String userName_s = Objects.requireNonNull(dataSnapshot.child("userName").getValue()).toString();
             String uri = Objects.requireNonNull(dataSnapshot.child("userImage").getValue()).toString();
             Glide.with(requireContext()).load(uri).into(profileImage);
+
 //                Log.d("UserDetails", "onSuccess: "+userName_s);
-            userName.setText(userName_s);
+            /*
+             * Here getShortName is a function which make the string in a short term like
+             * Rajesh Bhadra = Rajesh B...
+             */
+            userName.setText(NameFormation.getShortName(userName_s));
         });
 
     }
