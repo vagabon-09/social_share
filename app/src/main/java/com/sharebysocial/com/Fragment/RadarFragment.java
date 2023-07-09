@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sharebysocial.com.Adapter.RadarAdapter;
+import com.sharebysocial.com.Algorithm.DistanceCalculator;
 import com.sharebysocial.com.Model.RadarModel;
 import com.sharebysocial.com.databinding.FragmentRadarBinding;
 
@@ -82,6 +83,9 @@ public class RadarFragment extends Fragment {
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                double current_user_lati = snapshot.child(Objects.requireNonNull(mAuth.getUid())).child("location").child("0").child("lati").getValue(Double.class);
+                double current_user_longi = snapshot.child(Objects.requireNonNull(mAuth.getUid())).child("location").child("0").child("longi").getValue(Double.class);
+                Log.d("dataSnap", "onDataChange: " + current_user_lati + "");
                 radarModelArrayList = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     DataSnapshot locationSnapshot = dataSnapshot.child("location");
@@ -91,9 +95,9 @@ public class RadarFragment extends Fragment {
                     String userName = userSnapshot.child("0").child("userName").getValue(String.class);
                     String userImage = userSnapshot.child("0").child("userImage").getValue(String.class);
                     String userId = dataSnapshot.getKey();
-//                    dataSnapshot.getKey();
-//                    Log.d("KeyValue", "onDataChange: " + userId);
-                    if (!Objects.equals(mAuth.getUid(), userId)) {
+
+                    Log.d("userDistance", "onDataChange: " + DistanceCalculator.calculateDistance(current_user_lati, current_user_longi, lati, longi) + "");
+                    if (!Objects.equals(mAuth.getUid(), userId) && DistanceCalculator.calculateDistance(current_user_lati, current_user_longi, lati, longi) <= 500) {
                         radarModel = new RadarModel(userName, userImage, userId, lati, longi);
                         radarModelArrayList.add(radarModel);
                     }

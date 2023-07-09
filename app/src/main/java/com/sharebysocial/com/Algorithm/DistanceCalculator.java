@@ -3,7 +3,7 @@ package com.sharebysocial.com.Algorithm;
 public class DistanceCalculator {
     private static final double EARTH_RADIUS = 6371.01;
 
-    private static double calculateDistance(double latitude1, double longitude1, double latitude2, double longitude2) {
+    public static double calculateDistance(double latitude1, double longitude2, double latitude2, double longitude1) {
         double dLat = Math.toRadians(latitude2 - latitude1);
         double dLon = Math.toRadians(longitude2 - longitude1);
 
