@@ -17,7 +17,7 @@
         android:theme="@style/Theme.ShareBySocial"
         tools:targetApi="31">
         <activity
-            android:name=".Activities.FriendProfileScreen"
+            android:name=".Activities.FriendViewActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.SignUpActivity"

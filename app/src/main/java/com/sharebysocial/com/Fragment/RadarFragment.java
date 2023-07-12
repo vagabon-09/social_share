@@ -96,7 +96,7 @@ public class RadarFragment extends Fragment {
                         radarModelArrayList.add(radarModel);
                     }
                 }
-                adapter = new RadarAdapter(radarModelArrayList);
+                adapter = new RadarAdapter(radarModelArrayList,getContext());
                 binding.searchResultScanningId.setAdapter(adapter);
             }
 

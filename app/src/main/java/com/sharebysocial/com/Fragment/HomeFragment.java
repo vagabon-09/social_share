@@ -1,12 +1,12 @@
 package com.sharebysocial.com.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,18 +15,15 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.sharebysocial.com.Activities.FriendViewActivity;
 import com.sharebysocial.com.Adapter.ProfileAdapter;
 import com.sharebysocial.com.Algorithm.NameFormation;
 import com.sharebysocial.com.Model.ProfileModel;
-import com.sharebysocial.com.Model.UserModel;
 import com.sharebysocial.com.R;
 
-import java.net.URI;
 import java.util.Objects;
 
 public class HomeFragment extends Fragment {
@@ -58,7 +55,12 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         // Updating home page ui like , name images both are edited using the function
         updateHomePage(view);
+        setButton(view);
         return view;
+    }
+
+    private void setButton(View view) {
+
     }
 
     private void updateHomePage(View view) {

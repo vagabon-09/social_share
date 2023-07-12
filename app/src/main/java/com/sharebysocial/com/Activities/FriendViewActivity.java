@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.sharebysocial.com.R;
 
-public class FriendProfileScreen extends AppCompatActivity {
+public class FriendViewActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_friend_profile_screen);
+        setContentView(R.layout.activity_friend_view);
     }
 }
