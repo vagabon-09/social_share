@@ -10,5 +10,7 @@
     <color name="green">#44EE08</color>
     <color name="ash_2">#EDF1EC</color>
     <color name="deep_blue">#2716E3</color>
+    <color name="f_orange">#FFC970</color>
+    <color name="f_green">#A0D587</color>
 
 </resources>
