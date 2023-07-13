@@ -89,6 +89,11 @@
     <string name="rate_us">Rate Us</string>
     <string name="about_us">About us?</string>
     <string name="logout">logout</string>
+    <string name="android_back_button">andriod back button</string>
+    <string name="info_btn">info btn</string>
+    <string name="hi">Hi !</string>
+    <string name="friend_greeting">I am Jhon Smith</string>
+    <string name="connect_with_me">Connect with me</string>
 
 
 </resources>
