@@ -48,6 +48,7 @@ public class RadarAdapter extends RecyclerView.Adapter<RadarAdapter.MyViewHolder
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, FriendViewActivity.class);
+                intent.putExtra("userAuthId", user);
                 context.startActivity(intent);
             }
         });

@@ -50,7 +50,6 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         FirebaseRecyclerOptions<ProfileModel> options = new FirebaseRecyclerOptions.Builder<ProfileModel>().setQuery(databaseReference, ProfileModel.class).build();
-        BottomSheetfFragment fragment = new BottomSheetfFragment();
         adapter = new ProfileAdapter(options);
         recyclerView.setAdapter(adapter);
         // Updating home page ui like , name images both are edited using the function

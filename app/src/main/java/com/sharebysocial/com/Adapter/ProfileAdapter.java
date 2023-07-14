@@ -38,16 +38,6 @@ public class ProfileAdapter extends FirebaseRecyclerAdapter<ProfileModel, Profil
             }
         });
 
-        /*
-        holder.materialCardView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                BottomSheetDialogFragment bottomSheetDialogFragment = new BottomSheetfFragment();
-                bottomSheetDialogFragment.show((((AppCompatActivity) holder.appName.getContext()).getSupportFragmentManager()), bottomSheetDialogFragment.getTag());
-                return false;
-            }
-        });
-        */
 
         holder.visibilitySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -64,7 +54,6 @@ public class ProfileAdapter extends FirebaseRecyclerAdapter<ProfileModel, Profil
 
 
     }
-
 
     private void changeIconName(ProfileViewHolder holder, ProfileModel model) {
 
@@ -183,6 +172,7 @@ public class ProfileAdapter extends FirebaseRecyclerAdapter<ProfileModel, Profil
 
     @NonNull
     @Override
+
     public ProfileAdapter.ProfileViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_account_layout, parent, false);
         return new ProfileViewHolder(v);
