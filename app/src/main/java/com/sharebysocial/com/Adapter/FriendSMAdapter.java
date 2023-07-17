@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,12 +16,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.sharebysocial.com.Model.AccountModel;
 import com.sharebysocial.com.Model.ProfileModel;
 import com.sharebysocial.com.R;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FriendSMAdapter extends FirebaseRecyclerAdapter<ProfileModel, FriendSMAdapter.MyViewModel> {
+
+    FirebaseRecyclerOptions<AccountModel> accountModel;
 
     public FriendSMAdapter(@NonNull FirebaseRecyclerOptions<ProfileModel> options) {
         super(options);
@@ -33,22 +35,21 @@ public class FriendSMAdapter extends FirebaseRecyclerAdapter<ProfileModel, Frien
         setSocialAccount(holder, model);
         Log.d("socialAccount", "onBindViewHolder: " + model.getAccountName());
         holder.socialMediaBtn.setOnClickListener(v -> {
-            openFacebook(v);
+            openProfile(v,model.getUserName());
+
         });
     }
 
-    private void openFacebook(View view) {
-        String facebookProfileUrl = "https://www.facebook.com/rajesh.bhadra";
-        String facebookPlayStoreUrl = "market://details?id=com.facebook.katana";  // Play Store URL of the Facebook app
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(facebookProfileUrl));
+    private void openProfile(View view,String user) {
+        String facebookPlayStoreUrl = "market://details?id=com.facebook.katana";
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(user));
         PackageManager packageManager = view.getContext().getPackageManager();
-//        intent.setPackage(facebookPackageName);
 
         if (intent.resolveActivity(packageManager) != null) {
             // Facebook app or browser is available, open the profile URL
             view.getContext().startActivity(intent);
+//            Log.d("ProfileClicked", "onBindViewHolder: " + user);
         } else {
-            // Facebook app is not installed, open the Facebook app page on Play Store
             Intent playStoreIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(facebookPlayStoreUrl));
             view.getContext().startActivity(playStoreIntent);
         }

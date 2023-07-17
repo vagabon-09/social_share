@@ -14,6 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.sharebysocial.com.Adapter.FriendSMAdapter;
 import com.sharebysocial.com.Helper.Helper;
+import com.sharebysocial.com.Model.AccountModel;
 import com.sharebysocial.com.Model.ProfileModel;
 import com.sharebysocial.com.R;
 
