@@ -1,13 +1,17 @@
 package com.sharebysocial.com.Adapter;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -25,8 +29,29 @@ public class FriendSMAdapter extends FirebaseRecyclerAdapter<ProfileModel, Frien
 
     @Override
     protected void onBindViewHolder(@NonNull FriendSMAdapter.MyViewModel holder, int position, @NonNull ProfileModel model) {
-           setSocialAccount(holder,model);
+        setSocialAccount(holder, model);
         Log.d("socialAccount", "onBindViewHolder: " + model.getAccountName());
+        holder.socialMediaBtn.setOnClickListener(v -> {
+            openFacebook(v);
+        });
+    }
+
+    private void openFacebook(View view) {
+        String facebookPackageName = "com.facebook.katana";
+        String facebookPlayStoreUrl = "market://details?id=com.facebook.katana";  // Play Store URL of the Facebook app
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.setPackage(facebookPackageName);
+
+        if (intent.resolveActivity(view.getContext().getPackageManager()) != null) {
+            // Facebook app is installed, open it
+            view.getContext().startActivity(intent);
+        } else {
+            // Facebook app is not installed, open the Facebook app page on Play Store
+            Intent playStoreIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(facebookPlayStoreUrl));
+            view.getContext().startActivity(playStoreIntent);
+        }
+
     }
 
     private void setSocialAccount(MyViewModel holder, ProfileModel model) {
@@ -152,11 +177,13 @@ public class FriendSMAdapter extends FirebaseRecyclerAdapter<ProfileModel, Frien
     public static class MyViewModel extends RecyclerView.ViewHolder {
         CircleImageView profileImage;
         TextView profileTextView;
+        ConstraintLayout socialMediaBtn;
 
         public MyViewModel(@NonNull View itemView) {
             super(itemView);
             profileImage = itemView.findViewById(R.id.friend_social_profileView);
             profileTextView = itemView.findViewById(R.id.friend_social_profileName);
+            socialMediaBtn = itemView.findViewById(R.id.profile_socialMediaBtn);
         }
     }
 
