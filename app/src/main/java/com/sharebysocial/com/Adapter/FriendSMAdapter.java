@@ -1,6 +1,7 @@
 package com.sharebysocial.com.Adapter;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,14 +38,14 @@ public class FriendSMAdapter extends FirebaseRecyclerAdapter<ProfileModel, Frien
     }
 
     private void openFacebook(View view) {
-        String facebookPackageName = "com.facebook.katana";
+        String facebookProfileUrl = "https://www.facebook.com/rajesh.bhadra";
         String facebookPlayStoreUrl = "market://details?id=com.facebook.katana";  // Play Store URL of the Facebook app
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.setPackage(facebookPackageName);
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(facebookProfileUrl));
+        PackageManager packageManager = view.getContext().getPackageManager();
+//        intent.setPackage(facebookPackageName);
 
-        if (intent.resolveActivity(view.getContext().getPackageManager()) != null) {
-            // Facebook app is installed, open it
+        if (intent.resolveActivity(packageManager) != null) {
+            // Facebook app or browser is available, open the profile URL
             view.getContext().startActivity(intent);
         } else {
             // Facebook app is not installed, open the Facebook app page on Play Store
