@@ -17,10 +17,12 @@ public class TabPageAdapter extends FragmentPagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        if (position == 1) {
+        if (position == 0) {
             return new QrFragment();
+        } else {
+            return new ScanFragment();
         }
-        return new ScanFragment();
+
     }
 
     @Override
@@ -33,9 +35,9 @@ public class TabPageAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
 
         if (position == 0) {
-            return "QR Scanner";
+            return "My QR Code";
         } else {
-            return "My QR";
+            return "Scanner";
         }
     }
 }

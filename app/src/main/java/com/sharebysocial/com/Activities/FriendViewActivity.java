@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
@@ -21,7 +22,8 @@ import com.sharebysocial.com.R;
 public class FriendViewActivity extends AppCompatActivity {
     private DatabaseReference reference;
     private RecyclerView friendRecView;
-    private  FriendSMAdapter adapter;
+    private FriendSMAdapter adapter;
+    private String profileId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class FriendViewActivity extends AppCompatActivity {
         setView(); // Setting all view with the layout
         Helper.hideBar(this); // Hiding status bar
         fetchingFirebase(); // Fetching firebase data and showing in recyclerview
+
     }
 
     private void setView() {
@@ -39,15 +42,26 @@ public class FriendViewActivity extends AppCompatActivity {
     private void fetchingFirebase() {
 
         Intent intent = getIntent();
+        profileId = intent.getStringExtra("profileId");
         String userId = intent.getStringExtra("userAuthId");
-        reference = FirebaseDatabase.getInstance().getReference().child(userId).child("ProfileInformation");
-        FirebaseRecyclerOptions<ProfileModel> options = new FirebaseRecyclerOptions.Builder<ProfileModel>().setQuery(reference, ProfileModel.class).build();
-//        Log.d("userAuthId", "fetchingFirebase: "+userId);
-        friendRecView.setLayoutManager(new GridLayoutManager(this,3));
-       adapter = new FriendSMAdapter(options);
+
+        FirebaseRecyclerOptions<ProfileModel> options = null;
+        if (profileId.equals("")) {
+            reference = FirebaseDatabase.getInstance().getReference().child(userId).child("ProfileInformation");
+            options = new FirebaseRecyclerOptions.Builder<ProfileModel>().setQuery(reference, ProfileModel.class).build();
+
+        } else {
+            reference = FirebaseDatabase.getInstance().getReference().child(profileId).child("ProfileInformation");
+            options = new FirebaseRecyclerOptions.Builder<ProfileModel>().setQuery(reference, ProfileModel.class).build();
+
+        }
+        friendRecView.setLayoutManager(new GridLayoutManager(this, 3));
+        adapter = new FriendSMAdapter(options);
         friendRecView.setAdapter(adapter);
 
+
     }
+
     @Override
     public void onStart() {
         super.onStart();
