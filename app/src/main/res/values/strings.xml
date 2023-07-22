@@ -94,6 +94,7 @@
     <string name="hi">Hi !</string>
     <string name="friend_greeting">I am Jhon Smith</string>
     <string name="connect_with_me">Connect with me</string>
+    <string name="qr_code">QR Code</string>
 
 
 </resources>

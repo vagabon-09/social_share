@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.sharebysocial.com.Activities.FriendViewActivity;
+import com.sharebysocial.com.Activities.QRActivity;
 import com.sharebysocial.com.Adapter.ProfileAdapter;
 import com.sharebysocial.com.Algorithm.NameFormation;
 import com.sharebysocial.com.Model.ProfileModel;
@@ -55,11 +56,15 @@ public class HomeFragment extends Fragment {
         // Updating home page ui like , name images both are edited using the function
         updateHomePage(view);
         setButton(view);
+
         return view;
     }
 
     private void setButton(View view) {
-
+        view.findViewById(R.id.qr_btn_id).setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), QRActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void updateHomePage(View view) {
