@@ -44,18 +44,33 @@ public class FriendViewActivity extends AppCompatActivity {
         Intent intent = getIntent();
         profileId = intent.getStringExtra("profileId");
         String userId = intent.getStringExtra("userAuthId");
+        Log.d("fetchingUserId", "fetchingFirebase1: " + profileId);
+//        Log.d("fetchingUserId", "fetchingFirebase2: " + userId.toString());
 
         FirebaseRecyclerOptions<ProfileModel> options = null;
-        if (profileId.equals("")) {
-            reference = FirebaseDatabase.getInstance().getReference().child(userId).child("ProfileInformation");
-            options = new FirebaseRecyclerOptions.Builder<ProfileModel>().setQuery(reference, ProfileModel.class).build();
+        if (profileId == null) {
+            try {
+                reference = FirebaseDatabase.getInstance().getReference().child(userId).child("ProfileInformation");
+                options = new FirebaseRecyclerOptions.Builder<ProfileModel>().setQuery(reference, ProfileModel.class).build();
+            } catch (Exception e) {
+                Toast.makeText(this, "Please Scan a valid qr code", Toast.LENGTH_SHORT).show();
+                Log.d("validQR", "fetchingFirebase: " + e.toString());
+            }
+
 
         } else {
-            reference = FirebaseDatabase.getInstance().getReference().child(profileId).child("ProfileInformation");
-            options = new FirebaseRecyclerOptions.Builder<ProfileModel>().setQuery(reference, ProfileModel.class).build();
+            try {
+                reference = FirebaseDatabase.getInstance().getReference().child(profileId).child("ProfileInformation");
+                options = new FirebaseRecyclerOptions.Builder<ProfileModel>().setQuery(reference, ProfileModel.class).build();
+            } catch (Exception e) {
+                Toast.makeText(this, "Please scan a valid qr for this application", Toast.LENGTH_SHORT).show();
+                Log.d("validQR", "fetchingFirebase: " + e.toString());
+            }
 
         }
+
         friendRecView.setLayoutManager(new GridLayoutManager(this, 3));
+        assert options != null;
         adapter = new FriendSMAdapter(options);
         friendRecView.setAdapter(adapter);
 

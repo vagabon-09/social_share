@@ -1,21 +1,27 @@
 package com.sharebysocial.com.Fragment;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
+import com.sharebysocial.com.Activities.FriendViewActivity;
+import com.sharebysocial.com.Helper.CaptureAct;
 import com.sharebysocial.com.R;
 
 /**
@@ -23,18 +29,13 @@ import com.sharebysocial.com.R;
  * Use the {@link QrFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class QrFragment extends Fragment {
+public class QrFragment extends BottomSheetfFragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     private ImageView qrCode;
+    private CardView QRButton;
 
     public QrFragment() {
         // Required empty public constructor
@@ -53,8 +54,8 @@ public class QrFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            String mParam1 = getArguments().getString(ARG_PARAM1);
+            String mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -65,7 +66,52 @@ public class QrFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_qr, container, false);
         findIds(view);
         generateQr(); // Generating qr code
+        CLickScanBtn(view);
+
         return view;
+    }
+
+    private void CLickScanBtn(View view) {
+        QRButton = view.findViewById(R.id.scanBtn);
+        QRButton.setOnClickListener(v -> {
+            scanQr(); // This function for scan QR code
+        });
+    }
+
+    private void scanQr() {
+        ScanOptions options = new ScanOptions();
+        options.setDesiredBarcodeFormats(String.valueOf(BarcodeFormat.QR_CODE));
+        options.setPrompt("Scan a QR");
+        options.setCameraId(0);  // Use a specific camera of the device
+        options.setBeepEnabled(false);
+        options.setOrientationLocked(true);
+        options.setCaptureActivity(CaptureAct.class);
+        options.setBarcodeImageEnabled(true);
+        barcodeLauncher.launch(options);
+    }
+
+    private final ActivityResultLauncher<ScanOptions> barcodeLauncher = registerForActivityResult(new ScanContract(),
+            result -> {
+                if (result.getContents() == null) {
+                    Toast.makeText(requireActivity().getApplication(), "Cancelled", Toast.LENGTH_LONG).show();
+                } else {
+
+                    if (isValidQR(result.getContents())) {
+                        Intent intent = new Intent(requireContext(), FriendViewActivity.class);
+                        intent.putExtra("profileId", result.getContents());
+                        startActivity(intent);
+                        Log.d("CheckingBug", "bug: Fixing bug");
+                    } else {
+                        System.out.println("This qr code is invalid for this application");
+                    }
+                }
+            });
+
+    private boolean isValidQR(String str) {
+        if (str.contains("@") || str.contains(".") || str.contains("#") || str.contains("$") || str.contains("[") || str.contains("]")) {
+            return false;
+        }
+        return true;
     }
 
     private void generateQr() {

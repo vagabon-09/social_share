@@ -17,6 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.firebase.auth.FirebaseAuth;
@@ -77,7 +80,7 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         nightModeSetUp(view);
-        logOutBtn(view);
+        logOutBtn(view); // It login out the user
         fetchFirebaseData(view);
         return view;
     }
@@ -85,12 +88,7 @@ public class ProfileFragment extends Fragment {
     private void fetchFirebaseData(View view) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         reference.child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).child("userProfileData").child("0")
-                .get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
-                    @Override
-                    public void onSuccess(DataSnapshot dataSnapshot) {
-                        setUi(dataSnapshot, view);
-                    }
-                });
+                .get().addOnSuccessListener(dataSnapshot -> setUi(dataSnapshot, view));
     }
 
     private void setUi(DataSnapshot dataSnapshot, View view) {
@@ -110,22 +108,33 @@ public class ProfileFragment extends Fragment {
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getContext(), SignUpActivity.class);
-                startActivity(intent);
+                signOut(); // CLear previous gmail and lout out form current email
+
             }
+        });
+    }
+
+    private void signOut() {
+        // Clear the previous sign-in state
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        GoogleSignInClient signInClient = GoogleSignIn.getClient(requireActivity(), gso);
+        signInClient.signOut().addOnCompleteListener(task -> {
+            // After logout, the user will be able to select an email again for sign-in.
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(getContext(), SignUpActivity.class);
+            startActivity(intent);
         });
     }
 
     private void nightModeSetUp(View view) {
         // Accessing Button
         nightModeSwitch = view.findViewById(R.id.nightModeBtnId);
-        nightModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
+        nightModeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
 
-                }
             }
         });
 
