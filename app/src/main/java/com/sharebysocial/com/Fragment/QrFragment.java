@@ -108,10 +108,7 @@ public class QrFragment extends BottomSheetfFragment {
             });
 
     private boolean isValidQR(String str) {
-        if (str.contains("@") || str.contains(".") || str.contains("#") || str.contains("$") || str.contains("[") || str.contains("]")) {
-            return false;
-        }
-        return true;
+        return !str.contains("@") || !str.contains(".") || !str.contains("#") || !str.contains("$") || !str.contains("[") || !str.contains("]") || !str.contains("/") || !str.contains("\\");
     }
 
     private void generateQr() {
