@@ -28,7 +28,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RadarAdapter extends RecyclerView.Adapter<RadarAdapter.MyViewHolder> {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    String userId = mAuth.getUid();
+//    String userId = mAuth.getUid();
 
     List<RadarModel> radarModelsList;
     Context context;
@@ -53,41 +53,34 @@ public class RadarAdapter extends RecyclerView.Adapter<RadarAdapter.MyViewHolder
         holder.friendProfileScreen.setOnClickListener(v -> { // when some one click on friend icon button
             insertIntoDB(holder, position); // Inserting data to room database
             Intent intent = new Intent(context, FriendViewActivity.class);
-            intent.putExtra("userAuthId", user);
-//            intent.putExtra("userName", radarModelsList.get(position).getUserName());
-//            intent.putExtra("userImg", radarModelsList.get(position).getUserImage());
+            intent.putExtra("userAuthId", user); // transferring data form one activity to another activity
             context.startActivity(intent);
         });
-        // Log.d("UserId", "onBindViewHolder: " + radarModelsList.get(position).getUserId());
     }
 
     private void insertIntoDB(MyViewHolder holder, int position) {
         boolean isDataExist = false;
         DatabaseHelper helper = DatabaseHelper.getDB(holder.itemView.getContext());
-        String name = radarModelsList.get(position).getUserName();
-        String imgUrl = radarModelsList.get(position).getUserImage();
-        String userId = radarModelsList.get(position).getUserId();
-        long currentMillisecond = System.currentTimeMillis();
-//        Log.d("userDetails", "insertIntoDB: " + name + "\n" + imgUrl + "\n" + userId);
+        String name = radarModelsList.get(position).getUserName(); //Fetching user name form db
+        String imgUrl = radarModelsList.get(position).getUserImage(); // Fetching user image from db
+        String userId = radarModelsList.get(position).getUserId(); // Fetching userId form db
+        long currentMillisecond = System.currentTimeMillis(); // Fetching current time in millisecond
+
+        // History model setUp
         ArrayList<HistoryModel> historyModels = (ArrayList<HistoryModel>) helper.historyDAO().getAllHistory();
-        if (historyModels.size() == 0) {
-
-            Log.d("isDbEmpty", "insertIntoDB: " + "room db is empty");
-            helper.historyDAO().addHistory(new HistoryModel(name, imgUrl, userId, currentMillisecond));
-
-
-        } else {
-            Log.d("isDbEmpty", "insertIntoDB: " + "room db is not empty");
-            for (int i = 0; i < historyModels.size(); i++) {
-                if (Objects.equals(historyModels.get(i).getUserId(), userId)) {
-                    isDataExist = true;
-                }
+        for (HistoryModel hmd : historyModels) { // Fetching all data from room db
+            if (userId.equals(hmd.getUserId())) { // comparing all data with current data if exits then setting isDataExist = true
+                isDataExist = true; // if exist then setting data to true
+                break;
             }
         }
-        if (!isDataExist) {
-            helper.historyDAO().addHistory(new HistoryModel(name, imgUrl, userId, currentMillisecond));
-        } else {
+
+
+        if (isDataExist) { // if isDataExist then we ignoring the data or we can say we are not inserting data
             Log.d("isDataExist", "insertIntoDB: " + "data is exist now");
+        } else {
+            // if current data don't exist then we are inserting the to data base
+            helper.historyDAO().addHistory(new HistoryModel(name, imgUrl, userId, currentMillisecond));
         }
 
 
