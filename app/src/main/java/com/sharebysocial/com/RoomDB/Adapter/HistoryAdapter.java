@@ -5,17 +5,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
-import com.google.firebase.auth.FirebaseAuth;
 import com.sharebysocial.com.Helper.DateConverter;
 import com.sharebysocial.com.R;
+import com.sharebysocial.com.RoomDB.Helper.DatabaseHelper;
 import com.sharebysocial.com.RoomDB.Model.HistoryModel;
+
 import java.util.ArrayList;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHolder> {
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private ArrayList<HistoryModel> historyModels = new ArrayList<>();
 
     public HistoryAdapter(ArrayList<HistoryModel> historyModels) {
@@ -31,6 +34,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull HistoryAdapter.MyViewHolder holder, int position) {
+        DatabaseHelper helper = DatabaseHelper.getDB(holder.sf_circleImg.getContext());
         DateConverter dateConverter = new DateConverter(); // created object of DateConverter class
         //setting user name from firebase db
         holder.sf_name.setText(historyModels.get(position).getUserName());
@@ -38,6 +42,17 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
         Glide.with(holder.sf_circleImg.getContext()).load(historyModels.get(position).getUserImage()).into(holder.sf_circleImg);
         //Converting millisecond in customise data , month and year
         holder.sf_date.setText(dateConverter.convertDate("dd-MMM-yy", historyModels, position));
+        holder.cardBtn.setOnLongClickListener(v -> { // when long click on history card
+            holder.sf_deleteBtn.setVisibility(View.VISIBLE); // make delete button visible
+            return false;
+        });
+        holder.sf_deleteBtn.setOnClickListener(v -> { // when click on delete button
+
+            helper.historyDAO().deleteHistory(historyModels.get(position).getUserId()); // deleting data from delete history database
+            holder.sf_deleteBtn.setVisibility(View.GONE); // delete button visibility is gone
+            historyModels.remove(position); // removing data from history models
+            notifyItemRemoved(position); // now notifying to recycler view that data is removed
+        });
 
     }
 
@@ -47,15 +62,18 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView sf_circleImg;
+        ImageView sf_circleImg, sf_deleteBtn;
         TextView sf_name;
         TextView sf_date;
+        ConstraintLayout cardBtn;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             sf_circleImg = itemView.findViewById(R.id.circleImageView);
             sf_name = itemView.findViewById(R.id.sf_user_name);
             sf_date = itemView.findViewById(R.id.sf_user_date);
+            sf_deleteBtn = itemView.findViewById(R.id.sh_deleteBtnId);
+            cardBtn = itemView.findViewById(R.id.single_card_history);
         }
     }
 }

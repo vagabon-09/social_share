@@ -19,7 +19,7 @@ public interface HistoryDAO {
     @Insert
     void addHistory(HistoryModel historyModel);
 
-    @Query("DELETE FROM HistoryDB WHERE id = :id")
-    void deleteHistory(int id); //this function is use to delete data form db
+    @Query("DELETE FROM HistoryDB WHERE userId = :userId")
+    void deleteHistory(String userId); //this function is use to delete data form db
 
 }
