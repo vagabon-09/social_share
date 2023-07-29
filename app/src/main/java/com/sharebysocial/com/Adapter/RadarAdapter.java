@@ -2,6 +2,7 @@ package com.sharebysocial.com.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,12 @@ import com.sharebysocial.com.Activities.FriendViewActivity;
 import com.sharebysocial.com.Algorithm.NameFormation;
 import com.sharebysocial.com.Model.RadarModel;
 import com.sharebysocial.com.R;
+import com.sharebysocial.com.RoomDB.Helper.DatabaseHelper;
+import com.sharebysocial.com.RoomDB.Model.HistoryModel;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -42,17 +47,50 @@ public class RadarAdapter extends RecyclerView.Adapter<RadarAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull RadarAdapter.MyViewHolder holder, int position) {
-        String user = radarModelsList.get(position).getUserId();
-        holder.scanningName.setText(NameFormation.getShortName(radarModelsList.get(position).getUserName()));
-        holder.friendProfileScreen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, FriendViewActivity.class);
-                intent.putExtra("userAuthId", user);
-                context.startActivity(intent);
-            }
+        String user = radarModelsList.get(position).getUserId(); // Fetching user id from db
+        holder.scanningName.setText(NameFormation.getShortName(radarModelsList.get(position).getUserName())); // Fetching user name from db
+
+        holder.friendProfileScreen.setOnClickListener(v -> { // when some one click on friend icon button
+            insertIntoDB(holder, position); // Inserting data to room database
+            Intent intent = new Intent(context, FriendViewActivity.class);
+            intent.putExtra("userAuthId", user);
+//            intent.putExtra("userName", radarModelsList.get(position).getUserName());
+//            intent.putExtra("userImg", radarModelsList.get(position).getUserImage());
+            context.startActivity(intent);
         });
-//        Log.d("UserId", "onBindViewHolder: " + radarModelsList.get(position).getUserId());
+        // Log.d("UserId", "onBindViewHolder: " + radarModelsList.get(position).getUserId());
+    }
+
+    private void insertIntoDB(MyViewHolder holder, int position) {
+        boolean isDataExist = false;
+        DatabaseHelper helper = DatabaseHelper.getDB(holder.itemView.getContext());
+        String name = radarModelsList.get(position).getUserName();
+        String imgUrl = radarModelsList.get(position).getUserImage();
+        String userId = radarModelsList.get(position).getUserId();
+        long currentMillisecond = System.currentTimeMillis();
+//        Log.d("userDetails", "insertIntoDB: " + name + "\n" + imgUrl + "\n" + userId);
+        ArrayList<HistoryModel> historyModels = (ArrayList<HistoryModel>) helper.historyDAO().getAllHistory();
+        if (historyModels.size() == 0) {
+
+            Log.d("isDbEmpty", "insertIntoDB: " + "room db is empty");
+            helper.historyDAO().addHistory(new HistoryModel(name, imgUrl, userId, currentMillisecond));
+
+
+        } else {
+            Log.d("isDbEmpty", "insertIntoDB: " + "room db is not empty");
+            for (int i = 0; i < historyModels.size(); i++) {
+                if (Objects.equals(historyModels.get(i).getUserId(), userId)) {
+                    isDataExist = true;
+                }
+            }
+        }
+        if (!isDataExist) {
+            helper.historyDAO().addHistory(new HistoryModel(name, imgUrl, userId, currentMillisecond));
+        } else {
+            Log.d("isDataExist", "insertIntoDB: " + "data is exist now");
+        }
+
+
     }
 
 

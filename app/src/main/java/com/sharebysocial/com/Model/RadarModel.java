@@ -1,6 +1,8 @@
 package com.sharebysocial.com.Model;
 
 
+import androidx.room.Entity;
+
 public class RadarModel {
     private String userName, userImage, userId;
     private double lati, longi;
