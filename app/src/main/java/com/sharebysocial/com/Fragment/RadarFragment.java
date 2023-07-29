@@ -77,27 +77,29 @@ public class RadarFragment extends Fragment {
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // Getting current user latitude form db
                 double current_user_lati = snapshot.child(Objects.requireNonNull(mAuth.getUid())).child("location").child("0").child("lati").getValue(Double.class);
+                // Getting current user longitude from db
                 double current_user_longi = snapshot.child(Objects.requireNonNull(mAuth.getUid())).child("location").child("0").child("longi").getValue(Double.class);
-                Log.d("dataSnap", "onDataChange: " + current_user_lati + "");
+//                Log.d("dataSnap", "onDataChange: " + current_user_latitude + "");
                 radarModelArrayList = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    DataSnapshot locationSnapshot = dataSnapshot.child("location");
-                    DataSnapshot userSnapshot = dataSnapshot.child("userProfileData");
-                    double lati = locationSnapshot.child("0").child("lati").getValue(Double.class);
-                    double longi = locationSnapshot.child("0").child("longi").getValue(Double.class);
-                    String userName = userSnapshot.child("0").child("userName").getValue(String.class);
-                    String userImage = userSnapshot.child("0").child("userImage").getValue(String.class);
-                    String userId = dataSnapshot.getKey();
+                    DataSnapshot locationSnapshot = dataSnapshot.child("location"); // getting location data form db
+                    DataSnapshot userSnapshot = dataSnapshot.child("userProfileData"); // getting userProfileData form db
+                    double lati = locationSnapshot.child("0").child("lati").getValue(Double.class); // getting latitude from db
+                    double longi = locationSnapshot.child("0").child("longi").getValue(Double.class); // getting longitude from db
+                    String userName = userSnapshot.child("0").child("userName").getValue(String.class); // getting userName from db
+                    String userImage = userSnapshot.child("0").child("userImage").getValue(String.class); // getting userImage form database
+                    String userId = dataSnapshot.getKey(); // taking user id from firebase
 
-                    Log.d("userDistance", "onDataChange: " + DistanceCalculator.calculateDistance(current_user_lati, current_user_longi, lati, longi) + "");
+//                    Log.d("userDistance", "onDataChange: " + DistanceCalculator.calculateDistance(current_user_lati, current_user_longi, lati, longi) + "");
                     if (!Objects.equals(mAuth.getUid(), userId) && DistanceCalculator.calculateDistance(current_user_lati, current_user_longi, lati, longi) <= 500) {
-                        radarModel = new RadarModel(userName, userImage, userId, lati, longi);
-                        radarModelArrayList.add(radarModel);
+                        radarModel = new RadarModel(userName, userImage, userId, lati, longi); // Setting data to radar model
+                        radarModelArrayList.add(radarModel); // Setting model to arraylist
                     }
                 }
-                adapter = new RadarAdapter(radarModelArrayList, getContext());
-                binding.searchResultScanningId.setAdapter(adapter);
+                adapter = new RadarAdapter(radarModelArrayList, getContext()); // creating object of adapter modal
+                binding.searchResultScanningId.setAdapter(adapter); // setting adapter to recyclerview
             }
 
             @Override

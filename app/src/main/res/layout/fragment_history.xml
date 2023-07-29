@@ -23,11 +23,12 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
-            android:hint="Search Your Friends"
+            android:autofillHints="false"
             android:paddingStart="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageView5"
             app:layout_constraintStart_toStartOf="parent"
+            android:hint="@string/search_your_friends"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -38,6 +39,7 @@
             android:src="@drawable/search_icon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/image_search_button"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
