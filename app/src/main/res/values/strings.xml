@@ -98,6 +98,8 @@
     <string name="scan_qr">Scan QR</string>
     <string name="image_search_button">Image search button</string>
     <string name="search_your_friends">Search Your Friends</string>
+    <string name="date">29 - 04 - 23</string>
+    <string name="history_user_name">Rajesh Bhadra</string>
 
 
 </resources>
