@@ -1,6 +1,5 @@
 package com.sharebysocial.com.RoomDB.Adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import com.sharebysocial.com.Helper.DateConverter;
 import com.sharebysocial.com.R;
 import com.sharebysocial.com.RoomDB.Model.HistoryModel;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHolder> {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -33,17 +31,13 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull HistoryAdapter.MyViewHolder holder, int position) {
-        DateConverter dateConverter = new DateConverter();
-        String userId = mAuth.getUid();
-        Log.d("userId", "onBindViewHolder: " + userId);
-
-        if (!Objects.equals(userId, historyModels.get(position).getUserId())) {
-
-        }
+        DateConverter dateConverter = new DateConverter(); // created object of DateConverter class
+        //setting user name from firebase db
         holder.sf_name.setText(historyModels.get(position).getUserName());
-//        holder.sf_date.setText(historyModels.get(position).getDate());
+        // Using Glide library setting image to image view (from url)
         Glide.with(holder.sf_circleImg.getContext()).load(historyModels.get(position).getUserImage()).into(holder.sf_circleImg);
-        holder.sf_date.setText(dateConverter.convertDate("dd - MM - yy", historyModels, position));
+        //Converting millisecond in customise data , month and year
+        holder.sf_date.setText(dateConverter.convertDate("dd-MMM-yy", historyModels, position));
 
     }
 
