@@ -14,12 +14,12 @@ import java.util.List;
 @Dao
 public interface HistoryDAO {
     @Query("SELECT * FROM HistoryDB")
-    List<HistoryModel> getAllHistory();
+    List<HistoryModel> getAllHistory(); // this function is use to find allHistory from db
 
     @Insert
     void addHistory(HistoryModel historyModel);
 
     @Query("DELETE FROM HistoryDB WHERE id = :id")
-    void deleteHistory(int id);
+    void deleteHistory(int id); //this function is use to delete data form db
 
 }
