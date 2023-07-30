@@ -6,9 +6,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,7 +24,6 @@ import com.sharebysocial.com.Adapter.ProfileAdapter;
 import com.sharebysocial.com.Algorithm.NameFormation;
 import com.sharebysocial.com.Model.ProfileModel;
 import com.sharebysocial.com.R;
-
 import java.util.Objects;
 
 public class HomeFragment extends Fragment {
@@ -29,6 +31,10 @@ public class HomeFragment extends Fragment {
     private ProfileAdapter adapter;
     private ImageView profileImage;
     private TextView userName;
+    private EditText searchBar;
+    private FirebaseAuth mAuth;
+    private RecyclerView recyclerView;
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -40,27 +46,63 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        recyclerView = view.findViewById(R.id.profileRecyclerViewId); // connecting recyclerview with ui
+        searchBar = view.findViewById(R.id.homeSearchId); // connecting searchbar with ui
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Objects.requireNonNull(mAuth.getUid())).child("ProfileInformation");
-        RecyclerView recyclerView = view.findViewById(R.id.profileRecyclerViewId);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        FirebaseRecyclerOptions<ProfileModel> options = new FirebaseRecyclerOptions.Builder<ProfileModel>().setQuery(databaseReference, ProfileModel.class).build();
-        adapter = new ProfileAdapter(options);
-        recyclerView.setAdapter(adapter);
-        // Updating home page ui like , name images both are edited using the function
-        updateHomePage(view);
-        setButton(view);
+        fetchAccountData(view); // fetching all firebase data and setting in recycler view
+        updateHomePage(view);// Updating home page ui like , name images both are edited using the function
+        setButton(view); // all button click action are inside this function
+        searchBar();// search implement function
 
         return view;
     }
 
+    private void fetchAccountData(View view) {
+        // getting reference of firebase data base
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Objects.requireNonNull(mAuth.getUid())).child("ProfileInformation");
+        // setting linear layout to recycler view
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        // fetching data form firebase
+        FirebaseRecyclerOptions<ProfileModel> options = new FirebaseRecyclerOptions.Builder<ProfileModel>().setQuery(databaseReference, ProfileModel.class).build();
+        // setting options to adapter class
+        adapter = new ProfileAdapter(options);
+        // setting adapter to recycler view
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void searchBar() {
+        // listener of edit text and according to the search
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString()); // this function filter all recycler view result
+            }
+        });
+    }
+
+    private void filter(String s) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(Objects.requireNonNull(mAuth.getUid())).child("ProfileInformation");
+        FirebaseRecyclerOptions<ProfileModel> options = new FirebaseRecyclerOptions.Builder<ProfileModel>().setQuery(databaseReference.orderByChild("accountName").startAt(s).endAt(s + "\uf8ff"), ProfileModel.class).build();
+        adapter = new ProfileAdapter(options);
+        recyclerView.setAdapter(adapter);
+        adapter.startListening();
+        recyclerView.setAdapter(adapter);
+    }
+
     private void setButton(View view) {
         view.findViewById(R.id.qr_btn_id).setOnClickListener(v -> {
-//            Intent intent = new Intent(requireContext(), QRActivity.class);
-//            startActivity(intent);
             QrFragment bottomSheetFragment = new QrFragment();
             bottomSheetFragment.show(getChildFragmentManager(), bottomSheetFragment.getTag());
         });
@@ -80,7 +122,6 @@ public class HomeFragment extends Fragment {
             String uri = Objects.requireNonNull(dataSnapshot.child("userImage").getValue()).toString();
             Glide.with(requireContext()).load(uri).into(profileImage);
 
-//                Log.d("UserDetails", "onSuccess: "+userName_s);
             /*
              * Here getShortName is a function which make the string in a short term like
              * Rajesh Bhadra = Rajesh B...
