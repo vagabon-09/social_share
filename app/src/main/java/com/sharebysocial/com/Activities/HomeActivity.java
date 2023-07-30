@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -15,9 +17,15 @@ import com.sharebysocial.com.Fragment.HistoryFragment;
 import com.sharebysocial.com.Fragment.HomeFragment;
 import com.sharebysocial.com.Fragment.ProfileFragment;
 import com.sharebysocial.com.Fragment.RadarFragment;
+import com.sharebysocial.com.Helper.NetworkCheck;
 import com.sharebysocial.com.R;
 import com.sharebysocial.com.Helper.Helper;
 import com.sharebysocial.com.databinding.ActivityHomeBinding;
+import com.thecode.aestheticdialogs.AestheticDialog;
+import com.thecode.aestheticdialogs.DialogAnimation;
+import com.thecode.aestheticdialogs.DialogStyle;
+import com.thecode.aestheticdialogs.DialogType;
+import com.thecode.aestheticdialogs.OnDialogClickListener;
 
 public class HomeActivity extends AppCompatActivity {
     private Helper helper;
@@ -38,6 +46,25 @@ public class HomeActivity extends AppCompatActivity {
          * Bottom navigation bar operation
          */
         bottomNavigation();
+        netCheck();
+    }
+
+    public void netCheck() {
+        if (!NetworkCheck.isNetworkConnected(this)) {
+            setWarning();
+        }
+    }
+
+    private void setWarning() {
+        new AestheticDialog.Builder(this, DialogStyle.FLAT, DialogType.ERROR)
+                .setTitle("Internet")
+                .setMessage("Check your Internet Connection")
+                .setCancelable(false)
+                .setDarkMode(false)
+                .setGravity(Gravity.CENTER)
+                .setAnimation(DialogAnimation.SHRINK)
+                .setOnClickListener(AestheticDialog.Builder::dismiss)
+                .show();
     }
 
     private void bottomNavigation() {
@@ -69,11 +96,11 @@ public class HomeActivity extends AppCompatActivity {
         if (currentFragment instanceof HomeFragment) {
             // Handle back button press when in HomeFragment
             // For example, navigate to a different fragment or exit the app
-            Toast.makeText(this, "back button press..", Toast.LENGTH_SHORT).show();
             super.onBackPressed();
         } else {
             // If not in HomeFragment, navigate to HomeFragment on back button press
             binding.bottomNavigationId.setSelectedItemId(R.id.home_btn);
+
         }
     }
 

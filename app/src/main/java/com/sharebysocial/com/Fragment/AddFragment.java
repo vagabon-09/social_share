@@ -3,14 +3,18 @@ package com.sharebysocial.com.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,6 +26,11 @@ import android.widget.TextView;
 import com.sharebysocial.com.Helper.Helper;
 import com.sharebysocial.com.R;
 import com.sharebysocial.com.db.AddAccountDb;
+import com.thecode.aestheticdialogs.AestheticDialog;
+import com.thecode.aestheticdialogs.DialogAnimation;
+import com.thecode.aestheticdialogs.DialogStyle;
+import com.thecode.aestheticdialogs.DialogType;
+import com.thecode.aestheticdialogs.OnDialogClickListener;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -109,13 +118,10 @@ public class AddFragment extends Fragment {
         Button sendData = v.findViewById(R.id.accountSendDataId);
         cancelData = v.findViewById(R.id.cancle_btn_id);
 
-        sendData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String getUserName = profileFindId.getText().toString();
-                SendData(p, getUserName);
-                onBackPress();
-            }
+        sendData.setOnClickListener(v1 ->
+        {
+            String getUserName = profileFindId.getText().toString();
+            SendData(p, getUserName);
         });
         // This button use to clear all the selected data and set default data
         cancelData.setOnClickListener(new View.OnClickListener() {
@@ -251,6 +257,14 @@ public class AddFragment extends Fragment {
 
     public void SendData(int position, String userName) {
         AddAccountDb accountDb = new AddAccountDb(profile_spinner.getItemAtPosition(position).toString(), userName, getContext());
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                profileFindId.setText("");
+                profile_spinner.setSelection(0);
+            }
+        }, 1000);
+
     }
 
     private void SetDropDown(Spinner profile_spinner) {
@@ -271,7 +285,7 @@ public class AddFragment extends Fragment {
         arrayList.add("Twitch");
         arrayList.add("Discord");
         arrayList.add("Mastodon");
-        arrayList.add("VKontakte");
+        arrayList.add("Vkontakte");
         arrayList.add("Weibo");
         arrayList.add("KakaoTalk");
         arrayList.add("Website");
