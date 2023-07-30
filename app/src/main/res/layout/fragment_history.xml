@@ -26,14 +26,14 @@
             android:autofillHints="false"
             android:paddingStart="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView5"
+            app:layout_constraintEnd_toStartOf="@+id/searchBtn"
             app:layout_constraintStart_toStartOf="parent"
             android:hint="@string/search_your_friends"
             app:layout_constraintTop_toTopOf="parent"
             android:inputType="text" />
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/searchBtn"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
             android:layout_margin="@dimen/_3sdp"

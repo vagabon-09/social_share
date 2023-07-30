@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.sharebysocial.com.R;
 import com.sharebysocial.com.RoomDB.Adapter.HistoryAdapter;
@@ -65,8 +65,17 @@ public class HistoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_history, container, false);
         setItemView(view); // Finding all views form
         fetchData(view); // this function is using to set data in recyclerview
-        implementSearch();
+        implementSearch(); // Default search function
+        searchBtnCLick(view);// when some one click on search btb
         return view;
+    }
+
+    private void searchBtnCLick(View view) {
+        ImageView searchBtn = view.findViewById(R.id.searchBtn);
+        searchBtn.setOnClickListener(v -> {
+            implementSearch();
+        });
+
     }
 
     private void implementSearch() {
