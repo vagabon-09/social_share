@@ -49,11 +49,14 @@ public class RadarAdapter extends RecyclerView.Adapter<RadarAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull RadarAdapter.MyViewHolder holder, int position) {
         String user = radarModelsList.get(position).getUserId(); // Fetching user id from db
         holder.scanningName.setText(NameFormation.getShortName(radarModelsList.get(position).getUserName())); // Fetching user name from db
-
+        String profileImg = radarModelsList.get(position).getUserImage();
+        String userName = radarModelsList.get(position).getUserName();
         holder.friendProfileScreen.setOnClickListener(v -> { // when some one click on friend icon button
             insertIntoDB(holder, position); // Inserting data to room database
             Intent intent = new Intent(context, FriendViewActivity.class);
             intent.putExtra("userAuthId", user); // transferring data form one activity to another activity
+            intent.putExtra("userName", userName); // transferring data form one activity to another activity
+            intent.putExtra("profileImg", profileImg); // transferring data form one activity to another activity
             context.startActivity(intent);
         });
     }

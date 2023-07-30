@@ -1,8 +1,10 @@
 package com.sharebysocial.com.Fragment;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -17,6 +19,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -30,6 +37,8 @@ import com.sharebysocial.com.Activities.SignUpActivity;
 import com.sharebysocial.com.R;
 
 import java.util.Objects;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,8 +57,9 @@ public class ProfileFragment extends Fragment {
     private String mParam2;
     private MaterialSwitch nightModeSwitch;
     private LinearLayout logoutBtn;
-    private ImageView profileImage;
+    private CircleImageView profileImage;
     private TextView profileName;
+    private ShimmerFrameLayout shimmerFrameLayout;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -79,10 +89,17 @@ public class ProfileFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        setView(view);
         nightModeSetUp(view);
         logOutBtn(view); // It login out the user
         fetchFirebaseData(view);
         return view;
+    }
+
+    private void setView(View view) {
+        shimmerFrameLayout = view.findViewById(R.id.faceBookShimmerId);
+        profileImage = view.findViewById(R.id.profile_page_image_id);
+        profileName = view.findViewById(R.id.profile_page_user_name_id);
     }
 
     private void fetchFirebaseData(View view) {
@@ -98,7 +115,20 @@ public class ProfileFragment extends Fragment {
         String pName = Objects.requireNonNull(dataSnapshot.child("userName").getValue()).toString();
         String pImage = Objects.requireNonNull(dataSnapshot.child("userImage").getValue()).toString();
 //        Log.d("pName", "setUi: "+pName);
-        Glide.with(requireContext()).load(pImage).into(profileImage);
+        Glide.with(requireContext()).load(pImage).listener(new RequestListener<Drawable>() {
+            @Override
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                shimmerFrameLayout.setVisibility(View.GONE);
+                profileImage.setVisibility(View.VISIBLE);
+                profileName.setVisibility(View.VISIBLE);
+                return false;
+            }
+        }).into(profileImage);
         profileName.setText(pName);
     }
 

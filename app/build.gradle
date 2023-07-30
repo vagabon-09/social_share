@@ -67,5 +67,7 @@ dependencies {
     implementation 'com.karumi:dexter:6.2.2'
     //Room database implementation
     implementation 'android.arch.persistence.room:runtime:1.1.1'
-    annotationProcessor ('android.arch.persistence.room:compiler:1.1.1')
+    annotationProcessor('android.arch.persistence.room:compiler:1.1.1')
+    // Shimmer effect library
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 }

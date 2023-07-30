@@ -1,7 +1,9 @@
 package com.sharebysocial.com.Fragment;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +18,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -27,14 +34,18 @@ import com.sharebysocial.com.R;
 
 import java.util.Objects;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class HomeFragment extends Fragment {
 
     private ProfileAdapter adapter;
     private ImageView profileImage;
-    private TextView userName;
+    private TextView userName, greeting;
     private EditText searchBar;
     private FirebaseAuth mAuth;
     private RecyclerView recyclerView;
+    private CircleImageView profileImg;
+    private ShimmerFrameLayout homeShimmer;
 
 
     public HomeFragment() {
@@ -51,12 +62,13 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         recyclerView = view.findViewById(R.id.profileRecyclerViewId); // connecting recyclerview with ui
         searchBar = view.findViewById(R.id.homeSearchId); // connecting searchbar with ui
-
+        homeShimmer = view.findViewById(R.id.homeShimmerId); // connecting home shimmer with view
+        profileImg = view.findViewById(R.id.profile_image_id);
+        greeting = view.findViewById(R.id.greeting_id);
         fetchAccountData(view); // fetching all firebase data and setting in recycler view
         updateHomePage(view);// Updating home page ui like , name images both are edited using the function
         setButton(view); // all button click action are inside this function
         searchBar();// search implement function
-
         return view;
     }
 
@@ -121,7 +133,21 @@ public class HomeFragment extends Fragment {
         databaseReference.get().addOnSuccessListener(dataSnapshot -> {
             String userName_s = Objects.requireNonNull(dataSnapshot.child("userName").getValue()).toString();
             String uri = Objects.requireNonNull(dataSnapshot.child("userImage").getValue()).toString();
-            Glide.with(requireContext()).load(uri).into(profileImage);
+            Glide.with(requireContext()).load(uri).listener(new RequestListener<Drawable>() {
+                @Override
+                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                    return false;
+                }
+
+                @Override
+                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                    homeShimmer.setVisibility(View.GONE);
+                    profileImage.setVisibility(View.VISIBLE);
+                    greeting.setVisibility(View.VISIBLE);
+                    userName.setVisibility(View.VISIBLE);
+                    return false;
+                }
+            }).into(profileImage);
 
             /*
              * Here getShortName is a function which make the string in a short term like

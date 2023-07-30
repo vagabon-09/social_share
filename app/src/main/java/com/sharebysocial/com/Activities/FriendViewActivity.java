@@ -8,8 +8,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -19,11 +23,16 @@ import com.sharebysocial.com.Model.AccountModel;
 import com.sharebysocial.com.Model.ProfileModel;
 import com.sharebysocial.com.R;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class FriendViewActivity extends AppCompatActivity {
     private DatabaseReference reference;
     private RecyclerView friendRecView;
     private FriendSMAdapter adapter;
     private String profileId = "";
+    private CircleImageView profileImg;
+    private TextView greeting;
+    private ImageView backBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,20 +41,40 @@ public class FriendViewActivity extends AppCompatActivity {
         setView(); // Setting all view with the layout
         Helper.hideBar(this); // Hiding status bar
         fetchingFirebase(); // Fetching firebase data and showing in recyclerview
+        setButtonClick();
 
     }
 
     private void setView() {
         friendRecView = findViewById(R.id.friend_recyclerView);
+        profileImg = findViewById(R.id.friend_profile_imageView);
+        greeting = findViewById(R.id.friend_profile_greeting);
+        backBtn = findViewById(R.id.friend_profile_backBtn);
+    }
+
+    public void setButtonClick() {
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void fetchingFirebase() {
-
         Intent intent = getIntent();
         profileId = intent.getStringExtra("profileId");
         String userId = intent.getStringExtra("userAuthId");
-        Log.d("fetchingUserId", "fetchingFirebase1: " + profileId);
-//        Log.d("fetchingUserId", "fetchingFirebase2: " + userId.toString());
+        String userName = intent.getStringExtra("userName");
+        String profileUrl = intent.getStringExtra("profileImg");
+
+        Log.d("userDetails", "fetchingFirebase: " + userName);
+        Log.d("userDetails", "fetchingFirebase: " + profileUrl);
+        if (userName != null || profileUrl != null) {
+            Glide.with(this).load(profileUrl).into(profileImg);
+            greeting.setText("I am " + userName);
+        }
+
 
         FirebaseRecyclerOptions<ProfileModel> options = null;
         if (profileId == null) {
