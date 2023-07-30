@@ -24,6 +24,7 @@ import com.sharebysocial.com.Adapter.ProfileAdapter;
 import com.sharebysocial.com.Algorithm.NameFormation;
 import com.sharebysocial.com.Model.ProfileModel;
 import com.sharebysocial.com.R;
+
 import java.util.Objects;
 
 public class HomeFragment extends Fragment {
