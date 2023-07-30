@@ -34,7 +34,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull HistoryAdapter.MyViewHolder holder, int position) {
-        DatabaseHelper helper = DatabaseHelper.getDB(holder.sf_circleImg.getContext());
+        DatabaseHelper helper = DatabaseHelper.getDB(holder.sf_circleImg.getContext()); // created object of DatabaseHelper class
         DateConverter dateConverter = new DateConverter(); // created object of DateConverter class
         //setting user name from firebase db
         holder.sf_name.setText(historyModels.get(position).getUserName());
@@ -59,6 +59,11 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
     @Override
     public int getItemCount() {
         return historyModels.size();
+    }
+
+    public void filteredList(ArrayList<HistoryModel> arrayList) {
+        this.historyModels = arrayList;
+        notifyDataSetChanged();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
