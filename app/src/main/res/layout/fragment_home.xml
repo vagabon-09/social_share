@@ -60,20 +60,19 @@
     </com.facebook.shimmer.ShimmerFrameLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:visibility="invisible"
-        app:civ_border_width="1dp"
-        app:civ_border_color="@color/black"
         android:id="@+id/profile_image_id"
         android:layout_width="@dimen/_50sdp"
         android:layout_height="@dimen/_50sdp"
         android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_25sdp"
         android:src="@drawable/profile"
+        android:visibility="invisible"
+        app:civ_border_color="@color/black"
+        app:civ_border_width="1dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:visibility="invisible"
         android:id="@+id/greeting_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -83,18 +82,19 @@
         android:textColor="@color/black"
         android:textSize="@dimen/_15sdp"
         android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/user_name_id"
         app:layout_constraintStart_toEndOf="@+id/profile_image_id"
         app:layout_constraintTop_toTopOf="@+id/profile_image_id" />
 
     <TextView
-        android:visibility="invisible"
         android:id="@+id/user_name_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/times_new_roman"
         android:text="@string/user_name"
         android:textSize="@dimen/_16sdp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/profile_image_id"
         app:layout_constraintStart_toStartOf="@+id/greeting_id"
         app:layout_constraintTop_toBottomOf="@+id/greeting_id" />
