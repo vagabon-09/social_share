@@ -73,7 +73,7 @@ public class HistoryFragment extends Fragment {
         return view;
     }
     public void internetCheck() {
-        if (!NetworkCheck.isNetworkConnected(requireContext())) {
+        if (NetworkCheck.isNetworkConnected(requireContext())) {
             InternetWarning internetWarning = new InternetWarning(requireActivity());
         }
     }

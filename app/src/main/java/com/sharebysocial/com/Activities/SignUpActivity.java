@@ -24,7 +24,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void internetCheck() {
-        if (!NetworkCheck.isNetworkConnected(this)) {
+        if (NetworkCheck.isNetworkConnected(this)) {
             InternetWarning internetWarning = new InternetWarning(this);
         }
     }

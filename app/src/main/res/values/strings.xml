@@ -33,7 +33,7 @@
     <string name="cancle">Clear</string>
     <string name="save">Save\n</string>
     <string name="save_btn">Save</string>
-    <string name="user_name_hint">User Name</string>
+    <string name="user_name_hint">Profile Link</string>
 
     <!--    Application Name -->
     <string name="fb">Facebook</string>
@@ -101,6 +101,7 @@
     <string name="date">29 - 04 - 23</string>
     <string name="history_user_name">Rajesh Bhadra</string>
     <string name="history_fs">History</string>
+    <string name="hint">https://www.xyz.com/vagabon_09/</string>
 
 
 </resources>

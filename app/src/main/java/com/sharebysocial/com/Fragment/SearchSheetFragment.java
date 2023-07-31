@@ -4,13 +4,10 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.os.Bundle;
 
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +52,7 @@ public class SearchSheetFragment extends BottomSheetDialogFragment {
     }
 
     public void internetCheck() {
-        if (!NetworkCheck.isNetworkConnected(requireContext())) {
+        if (NetworkCheck.isNetworkConnected(requireContext())) {
             InternetWarning internetWarning = new InternetWarning(requireActivity());
         }
     }

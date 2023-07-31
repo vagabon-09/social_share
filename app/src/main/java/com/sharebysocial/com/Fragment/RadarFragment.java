@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +61,7 @@ public class RadarFragment extends Fragment {
     }
 
     public void internetCheck() {
-        if (!NetworkCheck.isNetworkConnected(requireContext())) {
+        if (NetworkCheck.isNetworkConnected(requireContext())) {
             InternetWarning internetWarning = new InternetWarning(requireActivity());
         } else {
             showBottomSheet();

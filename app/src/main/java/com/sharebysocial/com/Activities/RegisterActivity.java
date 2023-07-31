@@ -25,7 +25,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.sharebysocial.com.Helper.Helper;
 import com.sharebysocial.com.Helper.InternetWarning;
 import com.sharebysocial.com.Helper.NetworkCheck;
-import com.sharebysocial.com.Model.ProfileModel;
 import com.sharebysocial.com.Model.UserModel;
 import com.sharebysocial.com.R;
 
@@ -57,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void internetCheck() {
-        if (!NetworkCheck.isNetworkConnected(this)) {
+        if (NetworkCheck.isNetworkConnected(this)) {
             InternetWarning internetWarning = new InternetWarning(this);
         }
     }

@@ -125,7 +125,7 @@ public class HomeFragment extends Fragment {
 
     }
     public void internetCheck() {
-        if (!NetworkCheck.isNetworkConnected(requireContext())) {
+        if (NetworkCheck.isNetworkConnected(requireContext())) {
             InternetWarning internetWarning = new InternetWarning(requireActivity());
         }
     }

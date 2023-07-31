@@ -1,20 +1,14 @@
 package com.sharebysocial.com.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Handler;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,14 +22,8 @@ import com.sharebysocial.com.Helper.InternetWarning;
 import com.sharebysocial.com.Helper.NetworkCheck;
 import com.sharebysocial.com.R;
 import com.sharebysocial.com.db.AddAccountDb;
-import com.thecode.aestheticdialogs.AestheticDialog;
-import com.thecode.aestheticdialogs.DialogAnimation;
-import com.thecode.aestheticdialogs.DialogStyle;
-import com.thecode.aestheticdialogs.DialogType;
-import com.thecode.aestheticdialogs.OnDialogClickListener;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class AddFragment extends Fragment {
 
@@ -108,7 +96,7 @@ public class AddFragment extends Fragment {
     }
 
     public void internetCheck() {
-        if (!NetworkCheck.isNetworkConnected(requireContext())) {
+        if (NetworkCheck.isNetworkConnected(requireContext())) {
             InternetWarning internetWarning = new InternetWarning(requireActivity());
         }
     }
@@ -148,109 +136,109 @@ public class AddFragment extends Fragment {
         if (position == 0) {
             profileImage.setImageResource(R.drawable.share);
             userIdTitle.setText(R.string.user_name_hint);
-            profileFindId.setHint("user@123");
+            profileFindId.setHint(R.string.hint);
         }
 
         if (position == 1) {
             profileImage.setImageResource(R.drawable.facebook);
             userIdTitle.setText(R.string.user_name_hint);
-            profileFindId.setHint("user@123");
+            profileFindId.setHint(R.string.hint);
         }
 
         if (position == 2) {
             profileImage.setImageResource(R.drawable.instagram);
             userIdTitle.setText(R.string.user_name_hint);
-            profileFindId.setHint("user@123");
+            profileFindId.setHint(R.string.hint);
         }
         if (position == 3) {
             profileImage.setImageResource(R.drawable.github);
             userIdTitle.setText(R.string.user_name_hint);
-            profileFindId.setHint("user@123");
+            profileFindId.setHint(R.string.hint);
         }
         if (position == 4) {
             profileImage.setImageResource(R.drawable.twitter);
             userIdTitle.setText(R.string.user_name_hint);
-            profileFindId.setHint("user@123");
+            profileFindId.setHint(R.string.hint);
         }
         if (position == 5) {
             profileImage.setImageResource(R.drawable.snapchat);
             userIdTitle.setText(R.string.user_name_hint);
-            profileFindId.setHint("user@123");
+            profileFindId.setHint(R.string.hint);
         }
         if (position == 6) {
             profileImage.setImageResource(R.drawable.whatsapp);
             userIdTitle.setText(R.string.user_name_hint);
-            profileFindId.setHint("user@123");
+            profileFindId.setHint(R.string.hi);
         }
         if (position == 7) {
             profileImage.setImageResource(R.drawable.reddit);
             userIdTitle.setText(R.string.user_name_hint);
-            profileFindId.setHint("user@123");
+            profileFindId.setHint(R.string.hint);
         }
         if (position == 8) {
             profileImage.setImageResource(R.drawable.linkedin);
             userIdTitle.setText(R.string.user_name_hint);
-            profileFindId.setHint("user@123");
+            profileFindId.setHint(R.string.hint);
         }
         if (position == 9) {
             profileImage.setImageResource(R.drawable.tik_tok);
             userIdTitle.setText(R.string.user_name_hint);
-            profileFindId.setHint("user@123");
+            profileFindId.setHint(R.string.hint);
         }
         if (position == 10) {
             profileImage.setImageResource(R.drawable.youtube);
             userIdTitle.setText(R.string.user_name_hint);
-            profileFindId.setHint("user@123");
+            profileFindId.setHint(R.string.hint);
         }
         if (position == 11) {
             profileImage.setImageResource(R.drawable.pinterest);
             userIdTitle.setText(R.string.user_name_hint);
-            profileFindId.setHint("user@123");
+            profileFindId.setHint(R.string.hint);
         }
         if (position == 12) {
             profileImage.setImageResource(R.drawable.quora);
             userIdTitle.setText(R.string.user_name_hint);
-            profileFindId.setHint("user@123");
+            profileFindId.setHint(R.string.hint);
         }
         if (position == 13) {
             profileImage.setImageResource(R.drawable.tumblr);
             userIdTitle.setText(R.string.user_name_hint);
-            profileFindId.setHint("user@123");
+            profileFindId.setHint(R.string.hint);
         }
         if (position == 14) {
             profileImage.setImageResource(R.drawable.twitch);
             userIdTitle.setText(R.string.user_name_hint);
-            profileFindId.setHint("user@123");
+            profileFindId.setHint(R.string.hint);
         }
         if (position == 15) {
             profileImage.setImageResource(R.drawable.discord);
             userIdTitle.setText(R.string.user_name_hint);
-            profileFindId.setHint("user@123");
+            profileFindId.setHint(R.string.hint);
         }
         if (position == 16) {
             profileImage.setImageResource(R.drawable.mastodon);
             userIdTitle.setText(R.string.user_name_hint);
-            profileFindId.setHint("user@123");
+            profileFindId.setHint(R.string.hint);
         }
         if (position == 17) {
             profileImage.setImageResource(R.drawable.vkontakte);
             userIdTitle.setText(R.string.user_name_hint);
-            profileFindId.setHint("user@123");
+            profileFindId.setHint(R.string.hint);
         }
         if (position == 18) {
             profileImage.setImageResource(R.drawable.sina_weibo);
             userIdTitle.setText(R.string.user_name_hint);
-            profileFindId.setHint("user@123");
+            profileFindId.setHint(R.string.hint);
         }
         if (position == 19) {
             profileImage.setImageResource(R.drawable.kakao_talk);
             userIdTitle.setText(R.string.user_name_hint);
-            profileFindId.setHint("user@123");
+            profileFindId.setHint(R.string.hint);
         }
         if (position == 20) {
             profileImage.setImageResource(R.drawable.world_wide_web);
             userIdTitle.setText("Web URL");
-            profileFindId.setHint("https://rajeshb.com");
+            profileFindId.setHint(R.string.hint);
         }
         if (position == 21) {
             profileImage.setImageResource(R.drawable.gmail);
@@ -259,6 +247,8 @@ public class AddFragment extends Fragment {
         }
         if (position == 22) {
             profileImage.setImageResource(R.drawable.other);
+            userIdTitle.setText("Other ");
+            profileFindId.setHint("other");
         }
 
 
