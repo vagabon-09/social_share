@@ -37,7 +37,7 @@ public class SplashScreen extends AppCompatActivity {
         /*
          *In this function we will write code to redirect activity to home activity
          */
-        goToHome();
+//        goToHome();
     }
 
     @Override
@@ -47,21 +47,19 @@ public class SplashScreen extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 //        updateUI(currentUser);
         if (currentUser != null) {
-            Intent intent = new Intent(SplashScreen.this, HomeActivity.class);
+            goToHome();
+        } else {
+            Intent intent = new Intent(this, SignUpActivity.class);
             startActivity(intent);
-            finish();
         }
     }
 
     private void goToHome() {
         int postDelayed = 3000;
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        new Handler().postDelayed(() -> {
+            Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+            startActivity(intent);
+//            finish();
         }, postDelayed);
     }
 
@@ -72,7 +70,6 @@ public class SplashScreen extends AppCompatActivity {
         animationR.leftZoomOut(binding.githubIconId, 2000);
         animationR.rightZoomOut(binding.linkedinIconId, 2500);
         animationR.rightZoomOut(binding.twitterIconId, 3000);
-
     }
 
 
