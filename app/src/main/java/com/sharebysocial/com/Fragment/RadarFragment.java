@@ -20,6 +20,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sharebysocial.com.Adapter.RadarAdapter;
 import com.sharebysocial.com.Algorithm.DistanceCalculator;
+import com.sharebysocial.com.Helper.InternetWarning;
+import com.sharebysocial.com.Helper.NetworkCheck;
 import com.sharebysocial.com.Model.RadarModel;
 import com.sharebysocial.com.databinding.FragmentRadarBinding;
 
@@ -52,10 +54,18 @@ public class RadarFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        internetCheck();
         if (getArguments() != null) {
-            // TODO: Rename and change types of parameters
             String mParam1 = getArguments().getString(ARG_PARAM1);
             String mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
+
+    public void internetCheck() {
+        if (!NetworkCheck.isNetworkConnected(requireContext())) {
+            InternetWarning internetWarning = new InternetWarning(requireActivity());
+        } else {
+            showBottomSheet();
         }
     }
 
@@ -66,7 +76,6 @@ public class RadarFragment extends Fragment {
         View view = binding.getRoot();
         mAuth = FirebaseAuth.getInstance();
         setView();
-        showBottomSheet();
         binding.searchResultScanningId.setLayoutManager(new GridLayoutManager(requireContext(), 3));
         fetchFirebase();
         return view;

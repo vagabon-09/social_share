@@ -29,6 +29,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.sharebysocial.com.Adapter.ProfileAdapter;
 import com.sharebysocial.com.Algorithm.NameFormation;
+import com.sharebysocial.com.Helper.InternetWarning;
+import com.sharebysocial.com.Helper.NetworkCheck;
 import com.sharebysocial.com.Model.ProfileModel;
 import com.sharebysocial.com.R;
 
@@ -58,6 +60,7 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        internetCheck();
         mAuth = FirebaseAuth.getInstance();
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         recyclerView = view.findViewById(R.id.profileRecyclerViewId); // connecting recyclerview with ui
@@ -120,6 +123,11 @@ public class HomeFragment extends Fragment {
             bottomSheetFragment.show(getChildFragmentManager(), bottomSheetFragment.getTag());
         });
 
+    }
+    public void internetCheck() {
+        if (!NetworkCheck.isNetworkConnected(requireContext())) {
+            InternetWarning internetWarning = new InternetWarning(requireActivity());
+        }
     }
 
     private void updateHomePage(View view) {

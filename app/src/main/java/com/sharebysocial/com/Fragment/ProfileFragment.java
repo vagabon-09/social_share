@@ -34,6 +34,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.sharebysocial.com.Activities.SignUpActivity;
+import com.sharebysocial.com.Helper.InternetWarning;
+import com.sharebysocial.com.Helper.NetworkCheck;
 import com.sharebysocial.com.R;
 
 import java.util.Objects;
@@ -87,6 +89,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        internetCheck();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         setView(view);
@@ -106,6 +109,11 @@ public class ProfileFragment extends Fragment {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         reference.child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).child("userProfileData").child("0")
                 .get().addOnSuccessListener(dataSnapshot -> setUi(dataSnapshot, view));
+    }
+    public void internetCheck() {
+        if (!NetworkCheck.isNetworkConnected(requireContext())) {
+            InternetWarning internetWarning = new InternetWarning(requireActivity());
+        }
     }
 
     private void setUi(DataSnapshot dataSnapshot, View view) {

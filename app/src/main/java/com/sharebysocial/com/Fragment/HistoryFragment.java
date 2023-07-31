@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.sharebysocial.com.Helper.InternetWarning;
+import com.sharebysocial.com.Helper.NetworkCheck;
 import com.sharebysocial.com.R;
 import com.sharebysocial.com.RoomDB.Adapter.HistoryAdapter;
 import com.sharebysocial.com.RoomDB.Helper.DatabaseHelper;
@@ -61,6 +63,7 @@ public class HistoryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        internetCheck();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_history, container, false);
         setItemView(view); // Finding all views form
@@ -69,7 +72,11 @@ public class HistoryFragment extends Fragment {
         searchBtnCLick(view);// when some one click on search btb
         return view;
     }
-
+    public void internetCheck() {
+        if (!NetworkCheck.isNetworkConnected(requireContext())) {
+            InternetWarning internetWarning = new InternetWarning(requireActivity());
+        }
+    }
     private void searchBtnCLick(View view) {
         ImageView searchBtn = view.findViewById(R.id.searchBtn);
         searchBtn.setOnClickListener(v -> {

@@ -23,6 +23,8 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.sharebysocial.com.Helper.Helper;
+import com.sharebysocial.com.Helper.InternetWarning;
+import com.sharebysocial.com.Helper.NetworkCheck;
 import com.sharebysocial.com.Model.ProfileModel;
 import com.sharebysocial.com.Model.UserModel;
 import com.sharebysocial.com.R;
@@ -43,6 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+        internetCheck();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
 //        updateUI(currentUser);
@@ -50,6 +53,12 @@ public class RegisterActivity extends AppCompatActivity {
             Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
+        }
+    }
+
+    public void internetCheck() {
+        if (!NetworkCheck.isNetworkConnected(this)) {
+            InternetWarning internetWarning = new InternetWarning(this);
         }
     }
 

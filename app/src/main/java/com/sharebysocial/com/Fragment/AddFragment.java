@@ -24,6 +24,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.sharebysocial.com.Helper.Helper;
+import com.sharebysocial.com.Helper.InternetWarning;
+import com.sharebysocial.com.Helper.NetworkCheck;
 import com.sharebysocial.com.R;
 import com.sharebysocial.com.db.AddAccountDb;
 import com.thecode.aestheticdialogs.AestheticDialog;
@@ -76,6 +78,7 @@ public class AddFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        internetCheck();
         /*  Inflate the layout for this fragment*/
         View view = inflater.inflate(R.layout.fragment_add, container, false);
         profileImage = view.findViewById(R.id.ProfileIconId);
@@ -102,6 +105,12 @@ public class AddFragment extends Fragment {
         getAndSendData(view);
 
         return view;
+    }
+
+    public void internetCheck() {
+        if (!NetworkCheck.isNetworkConnected(requireContext())) {
+            InternetWarning internetWarning = new InternetWarning(requireActivity());
+        }
     }
 
     public void onBackPress() {

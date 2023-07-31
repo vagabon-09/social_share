@@ -22,6 +22,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.sharebysocial.com.Helper.InternetWarning;
+import com.sharebysocial.com.Helper.NetworkCheck;
 import com.sharebysocial.com.Model.LocationModel;
 import com.sharebysocial.com.R;
 
@@ -36,8 +38,6 @@ public class SearchSheetFragment extends BottomSheetDialogFragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private String mParam1;
-    private String mParam2;
     private FusedLocationProviderClient fusedLocationProviderClient;
 
     public SearchSheetFragment() {
@@ -54,12 +54,19 @@ public class SearchSheetFragment extends BottomSheetDialogFragment {
         return fragment;
     }
 
+    public void internetCheck() {
+        if (!NetworkCheck.isNetworkConnected(requireContext())) {
+            InternetWarning internetWarning = new InternetWarning(requireActivity());
+        }
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        internetCheck();
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            String mParam1 = getArguments().getString(ARG_PARAM1);
+            String mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -79,33 +86,30 @@ public class SearchSheetFragment extends BottomSheetDialogFragment {
             return;
         }
         fusedLocationProviderClient.getLastLocation()
-                .addOnSuccessListener(new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        if (location != null) {
-                            Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
-                            try {
-                                List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                                double latitude = 0;
-                                double longitude = 0;
-                                latitude = addresses.get(0).getLatitude();
-                                longitude = addresses.get(0).getLongitude();
-                                if (latitude != 0 && longitude != 0) {
-                                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).child("location");
-                                    List<LocationModel> locationModelList = new ArrayList<>();
-                                    locationModelList.add(new LocationModel(latitude, longitude));
-                                    reference.setValue(locationModelList).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void unused) {
-                                            dismiss();
-                                        }
-                                    });
-                                }
-
-
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
+                .addOnSuccessListener(location -> {
+                    if (location != null) {
+                        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+                        try {
+                            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                            double latitude = 0;
+                            double longitude = 0;
+                            latitude = addresses.get(0).getLatitude();
+                            longitude = addresses.get(0).getLongitude();
+                            if (latitude != 0 && longitude != 0) {
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).child("location");
+                                List<LocationModel> locationModelList = new ArrayList<>();
+                                locationModelList.add(new LocationModel(latitude, longitude));
+                                reference.setValue(locationModelList).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        dismiss();
+                                    }
+                                });
                             }
+
+
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
                         }
                     }
                 });

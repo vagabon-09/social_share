@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.sharebysocial.com.Helper.InternetWarning;
+import com.sharebysocial.com.Helper.NetworkCheck;
 import com.sharebysocial.com.R;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -15,9 +17,16 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        internetCheck();
         setContentView(R.layout.activity_sign_up);
         findViewsById();
         clickListener();
+    }
+
+    public void internetCheck() {
+        if (!NetworkCheck.isNetworkConnected(this)) {
+            InternetWarning internetWarning = new InternetWarning(this);
+        }
     }
 
     private void clickListener() {
