@@ -51,14 +51,16 @@ public class SplashScreen extends AppCompatActivity {
         } else {
             Intent intent = new Intent(this, SignUpActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 
     private void goToHome() {
         int postDelayed = 3000;
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
             startActivity(intent);
+            finish();
         }, postDelayed);
     }
 

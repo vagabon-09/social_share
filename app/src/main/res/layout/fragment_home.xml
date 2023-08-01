@@ -77,7 +77,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_15sdp"
-        android:fontFamily="@font/times_new_roman"
+        android:fontFamily="@font/blasamiq_regular"
         android:text="@string/greeting"
         android:textColor="@color/black"
         android:textSize="@dimen/_15sdp"
@@ -91,7 +91,7 @@
         android:id="@+id/user_name_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/times_new_roman"
+        android:fontFamily="@font/popin_regular"
         android:text="@string/user_name"
         android:textSize="@dimen/_16sdp"
         android:visibility="invisible"
@@ -184,7 +184,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_20sdp"
-        android:fontFamily="@font/times_new_roman"
+        android:fontFamily="@font/popin_medium"
         android:text="@string/all_saved_profiles"
         android:textColor="@color/black"
         android:textSize="@dimen/_18sdp"
@@ -192,6 +192,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:visibility="invisible"
         android:id="@+id/profileRecyclerViewId"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -203,4 +204,61 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:listitem="@layout/single_account_layout" />
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/homeBackgroundShimmerId"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/profileRecyclerViewId"
+        app:layout_constraintEnd_toEndOf="@+id/profileRecyclerViewId"
+        app:layout_constraintStart_toStartOf="@+id/profileRecyclerViewId"
+        android:visibility="visible"
+        app:layout_constraintTop_toTopOf="@+id/profileRecyclerViewId">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_46sdp"
+                android:background="#C8C4C4" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_46sdp"
+                android:layout_marginTop="@dimen/_13sdp"
+                android:background="#C8C4C4" />
+
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_46sdp"
+                android:layout_marginTop="@dimen/_13sdp"
+                android:background="#C8C4C4" />
+
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_46sdp"
+                android:layout_marginTop="@dimen/_13sdp"
+                android:background="#C8C4C4" />
+
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_46sdp"
+                android:layout_marginTop="@dimen/_13sdp"
+                android:background="#C8C4C4" />
+
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_46sdp"
+                android:layout_marginTop="@dimen/_13sdp"
+                android:background="#C8C4C4" />
+
+
+        </LinearLayout>
+
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

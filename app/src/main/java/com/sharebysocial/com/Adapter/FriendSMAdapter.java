@@ -33,7 +33,7 @@ public class FriendSMAdapter extends FirebaseRecyclerAdapter<ProfileModel, Frien
     @Override
     protected void onBindViewHolder(@NonNull FriendSMAdapter.MyViewModel holder, int position, @NonNull ProfileModel model) {
         setSocialAccount(holder, model);
-        Log.d("socialAccount", "onBindViewHolder: " + model.getAccountName());
+//        Log.d("socialAccount", "onBindViewHolder: " + model.getAccountName());
         holder.socialMediaBtn.setOnClickListener(v -> {
             openProfile(v,model.getUserName());
 

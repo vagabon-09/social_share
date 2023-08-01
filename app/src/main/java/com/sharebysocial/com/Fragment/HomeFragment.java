@@ -46,8 +46,7 @@ public class HomeFragment extends Fragment {
     private EditText searchBar;
     private FirebaseAuth mAuth;
     private RecyclerView recyclerView;
-    private CircleImageView profileImg;
-    private ShimmerFrameLayout homeShimmer;
+    private ShimmerFrameLayout homeShimmer, recyclerShimmer;
 
 
     public HomeFragment() {
@@ -66,7 +65,8 @@ public class HomeFragment extends Fragment {
         recyclerView = view.findViewById(R.id.profileRecyclerViewId); // connecting recyclerview with ui
         searchBar = view.findViewById(R.id.homeSearchId); // connecting searchbar with ui
         homeShimmer = view.findViewById(R.id.homeShimmerId); // connecting home shimmer with view
-        profileImg = view.findViewById(R.id.profile_image_id);
+        recyclerShimmer = view.findViewById(R.id.homeBackgroundShimmerId);
+        CircleImageView profileImg = view.findViewById(R.id.profile_image_id);
         greeting = view.findViewById(R.id.greeting_id);
         fetchAccountData(view); // fetching all firebase data and setting in recycler view
         updateHomePage(view);// Updating home page ui like , name images both are edited using the function
@@ -124,6 +124,7 @@ public class HomeFragment extends Fragment {
         });
 
     }
+
     public void internetCheck() {
         if (NetworkCheck.isNetworkConnected(requireContext())) {
             InternetWarning internetWarning = new InternetWarning(requireActivity());
@@ -153,6 +154,8 @@ public class HomeFragment extends Fragment {
                     profileImage.setVisibility(View.VISIBLE);
                     greeting.setVisibility(View.VISIBLE);
                     userName.setVisibility(View.VISIBLE);
+                    recyclerShimmer.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
                     return false;
                 }
             }).into(profileImage);

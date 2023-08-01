@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.card.MaterialCardView;
@@ -31,28 +32,21 @@ public class ProfileAdapter extends FirebaseRecyclerAdapter<ProfileModel, Profil
 
     @Override
     protected void onBindViewHolder(@NonNull ProfileAdapter.ProfileViewHolder holder, int position, @NonNull ProfileModel model) {
-        holder.materialCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
+
+        holder.materialCardView.setOnClickListener(v -> {
+        });
+
+        holder.visibilitySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
+            if (isChecked) {
+                Toast.makeText(buttonView.getContext(), "Checked", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(buttonView.getContext(), "Unchecked", Toast.LENGTH_SHORT).show();
             }
         });
 
-
-        holder.visibilitySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                if (isChecked) {
-                    Toast.makeText(buttonView.getContext(), "Checked", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(buttonView.getContext(), "Unchecked", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
         changeIconName(holder, model);
-
-
     }
 
     private void changeIconName(ProfileViewHolder holder, ProfileModel model) {
@@ -185,12 +179,15 @@ public class ProfileAdapter extends FirebaseRecyclerAdapter<ProfileModel, Profil
         TextView appName;
         LinearLayout EditButton;
 
+
         public ProfileViewHolder(@NonNull View itemView) {
             super(itemView);
             materialCardView = itemView.findViewById(R.id.ProfileCardClickId);
             visibilitySwitch = itemView.findViewById(R.id.visibilitySwitchId);
             appIcon = itemView.findViewById(R.id.appIconId);
             appName = itemView.findViewById(R.id.appNameId);
+
+
         }
     }
 }

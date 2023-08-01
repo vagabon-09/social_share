@@ -1,26 +1,25 @@
 package com.sharebysocial.com.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
-import android.view.Gravity;
+import android.util.Log;
+import android.view.MenuItem;
 
+import com.google.android.material.navigation.NavigationBarView;
 import com.sharebysocial.com.Fragment.AddFragment;
 import com.sharebysocial.com.Fragment.HistoryFragment;
 import com.sharebysocial.com.Fragment.HomeFragment;
 import com.sharebysocial.com.Fragment.ProfileFragment;
 import com.sharebysocial.com.Fragment.RadarFragment;
-import com.sharebysocial.com.Helper.InternetWarning;
-import com.sharebysocial.com.Helper.NetworkCheck;
+
 import com.sharebysocial.com.R;
 import com.sharebysocial.com.Helper.Helper;
 import com.sharebysocial.com.databinding.ActivityHomeBinding;
-import com.thecode.aestheticdialogs.AestheticDialog;
-import com.thecode.aestheticdialogs.DialogAnimation;
-import com.thecode.aestheticdialogs.DialogStyle;
-import com.thecode.aestheticdialogs.DialogType;
+
 
 public class HomeActivity extends AppCompatActivity {
     private Helper helper;
@@ -43,10 +42,6 @@ public class HomeActivity extends AppCompatActivity {
         bottomNavigation();
     }
 
-
-    private void setWarning() {
-        InternetWarning internetWarning = new InternetWarning(this);
-    }
 
     private void bottomNavigation() {
         binding.bottomNavigationId.setOnItemSelectedListener(item -> {
@@ -73,16 +68,17 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.bottomNavigationId);
-        if (currentFragment instanceof HomeFragment) {
-            // Handle back button press when in HomeFragment
-            // For example, navigate to a different fragment or exit the app
-            super.onBackPressed();
-        } else {
-            // If not in HomeFragment, navigate to HomeFragment on back button press
+        // Check if there are any fragments in the back stack
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            // If there are, pop the fragment from the back stack
+            getSupportFragmentManager().popBackStack();
             binding.bottomNavigationId.setSelectedItemId(R.id.home_btn);
 
+        } else {
+            // If there are no fragments in the back stack, exit the app
+            super.onBackPressed();
         }
+
     }
 
 }

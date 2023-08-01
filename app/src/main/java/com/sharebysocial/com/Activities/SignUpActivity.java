@@ -30,13 +30,10 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void clickListener() {
-        noAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SignUpActivity.this, RegisterActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        noAccount.setOnClickListener(v -> {
+            Intent intent = new Intent(SignUpActivity.this, RegisterActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 
