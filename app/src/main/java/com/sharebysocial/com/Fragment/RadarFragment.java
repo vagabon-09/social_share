@@ -6,7 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,7 @@ import com.sharebysocial.com.Algorithm.DistanceCalculator;
 import com.sharebysocial.com.Helper.InternetWarning;
 import com.sharebysocial.com.Helper.NetworkCheck;
 import com.sharebysocial.com.Model.RadarModel;
+import com.sharebysocial.com.R;
 import com.sharebysocial.com.databinding.FragmentRadarBinding;
 
 import java.util.ArrayList;
@@ -75,7 +78,7 @@ public class RadarFragment extends Fragment {
         View view = binding.getRoot();
         mAuth = FirebaseAuth.getInstance();
         setView();
-        binding.searchResultScanningId.setLayoutManager(new GridLayoutManager(requireContext(), 3));
+        binding.searchResultScanningId.setLayoutManager(new LinearLayoutManager(requireContext()));
         fetchFirebase();
         return view;
     }
@@ -101,7 +104,9 @@ public class RadarFragment extends Fragment {
                     String userId = dataSnapshot.getKey(); // taking user id from firebase
 
 //                    Log.d("userDistance", "onDataChange: " + DistanceCalculator.calculateDistance(current_user_lati, current_user_longi, lati, longi) + "");
-                    if (!Objects.equals(mAuth.getUid(), userId) && DistanceCalculator.calculateDistance(current_user_lati, current_user_longi, lati, longi) <= 500) {
+                    int distance = (int) DistanceCalculator.calculateDistance(current_user_lati, current_user_longi, lati, longi);
+                    Log.d("distanceRadar", "onDataChange: "+distance+"");
+                    if (!Objects.equals(mAuth.getUid(), userId) && distance <= 500) {
                         radarModel = new RadarModel(userName, userImage, userId, lati, longi); // Setting data to radar model
                         radarModelArrayList.add(radarModel); // Setting model to arraylist
                     }
@@ -126,6 +131,6 @@ public class RadarFragment extends Fragment {
     }
 
     private void setView() {
-        binding.radarAnimationId.playAnimation();
+
     }
 }

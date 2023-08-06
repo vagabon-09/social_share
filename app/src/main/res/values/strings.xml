@@ -102,6 +102,7 @@
     <string name="history_user_name">Rajesh Bhadra</string>
     <string name="history_fs">History</string>
     <string name="hint">https://www.xyz.com/vagabon_09/</string>
+    <string name="distance">0 m / 500 m</string>
 
 
 </resources>

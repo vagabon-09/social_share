@@ -12,5 +12,8 @@
     <color name="deep_blue">#2716E3</color>
     <color name="f_orange">#FFC970</color>
     <color name="f_green">#A0D587</color>
+    <color name="progress_bg">#D2D2D2</color>
+    <color name="load_bg">#73848E</color>
+
 
 </resources>
