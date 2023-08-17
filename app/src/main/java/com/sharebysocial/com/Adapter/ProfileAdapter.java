@@ -37,15 +37,6 @@ public class ProfileAdapter extends FirebaseRecyclerAdapter<ProfileModel, Profil
         holder.materialCardView.setOnClickListener(v -> {
         });
 
-        holder.visibilitySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-
-            if (isChecked) {
-                Toast.makeText(buttonView.getContext(), "Checked", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(buttonView.getContext(), "Unchecked", Toast.LENGTH_SHORT).show();
-            }
-        });
-
         changeIconName(holder, model);
     }
 
@@ -174,7 +165,6 @@ public class ProfileAdapter extends FirebaseRecyclerAdapter<ProfileModel, Profil
 
     public static class ProfileViewHolder extends RecyclerView.ViewHolder {
         MaterialCardView materialCardView;
-        MaterialSwitch visibilitySwitch;
         ImageView appIcon;
         TextView appName;
         LinearLayout EditButton;
@@ -183,7 +173,6 @@ public class ProfileAdapter extends FirebaseRecyclerAdapter<ProfileModel, Profil
         public ProfileViewHolder(@NonNull View itemView) {
             super(itemView);
             materialCardView = itemView.findViewById(R.id.ProfileCardClickId);
-            visibilitySwitch = itemView.findViewById(R.id.visibilitySwitchId);
             appIcon = itemView.findViewById(R.id.appIconId);
             appName = itemView.findViewById(R.id.appNameId);
 

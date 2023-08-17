@@ -49,8 +49,7 @@ dependencies {
     //Responsive size
     implementation 'com.intuit.sdp:sdp-android:1.1.0'
     //Lottie animation
-    def lottieVersion = "3.4.0"
-    implementation "com.airbnb.android:lottie:$lottieVersion"
+    implementation "com.airbnb.android:lottie:6.1.0"
     //dropdown menu dependency
     implementation "com.github.skydoves:powerspinner:1.2.6"
     // Circular Imageview dependency

@@ -84,6 +84,7 @@
         android:layout_height="@dimen/_30sdp"
         android:src="@drawable/info_icon"
         app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/radar_info"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView

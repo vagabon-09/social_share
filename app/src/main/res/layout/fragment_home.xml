@@ -187,18 +187,18 @@
         android:fontFamily="@font/popin_medium"
         android:text="@string/all_saved_profiles"
         android:textColor="@color/black"
-        android:textSize="@dimen/_18sdp"
+        android:textSize="@dimen/_17sdp"
         app:layout_constraintStart_toStartOf="@+id/linearLayout"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:visibility="invisible"
         android:id="@+id/profileRecyclerViewId"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_15sdp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -209,10 +209,10 @@
         android:id="@+id/homeBackgroundShimmerId"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/profileRecyclerViewId"
         app:layout_constraintEnd_toEndOf="@+id/profileRecyclerViewId"
         app:layout_constraintStart_toStartOf="@+id/profileRecyclerViewId"
-        android:visibility="visible"
         app:layout_constraintTop_toTopOf="@+id/profileRecyclerViewId">
 
         <LinearLayout

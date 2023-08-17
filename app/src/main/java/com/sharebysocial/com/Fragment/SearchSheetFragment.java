@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.core.app.ActivityCompat;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,11 +86,12 @@ public class SearchSheetFragment extends BottomSheetDialogFragment {
         fusedLocationProviderClient.getLastLocation()
                 .addOnSuccessListener(location -> {
                     if (location != null) {
-                        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+                        Geocoder geocoder = new Geocoder(requireContext(), Locale.getDefault());
                         try {
                             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                             double latitude = 0;
                             double longitude = 0;
+                            assert addresses != null;
                             latitude = addresses.get(0).getLatitude();
                             longitude = addresses.get(0).getLongitude();
                             if (latitude != 0 && longitude != 0) {
@@ -104,9 +106,8 @@ public class SearchSheetFragment extends BottomSheetDialogFragment {
                                 });
                             }
 
-
                         } catch (IOException e) {
-                            throw new RuntimeException(e);
+                            Log.d("searchException", "getLastLocation: " + e);
                         }
                     }
                 });
