@@ -104,6 +104,8 @@
     <string name="hint">https://www.xyz.com/vagabon_09/</string>
     <string name="distance">0 m / 500 m</string>
     <string name="radar_info">radar info details</string>
+    <string name="invisible_btn">invisible btn</string>
+    <string name="visible_btn">visible btn</string>
 
 
 </resources>

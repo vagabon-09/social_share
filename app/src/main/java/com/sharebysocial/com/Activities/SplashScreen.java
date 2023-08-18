@@ -30,10 +30,7 @@ public class SplashScreen extends AppCompatActivity {
          *   and here we can see battery status , network status and others notifications)
          */
         Helper.hideBar(this);
-        /*
-         * In this function we are setting all animation for the splash screen
-         */
-        animate();
+
         /*
          *In this function we will write code to redirect activity to home activity
          */
@@ -64,14 +61,7 @@ public class SplashScreen extends AppCompatActivity {
         }, postDelayed);
     }
 
-    private void animate() {
-        animationR.rightZoomOut(binding.instagramIconId, 500);
-        animationR.leftZoomOut(binding.facebookIconId, 1000);
-        animationR.leftZoomOut(binding.snapchatIconId, 1500);
-        animationR.leftZoomOut(binding.githubIconId, 2000);
-        animationR.rightZoomOut(binding.linkedinIconId, 2500);
-        animationR.rightZoomOut(binding.twitterIconId, 3000);
-    }
+
 
 
 }

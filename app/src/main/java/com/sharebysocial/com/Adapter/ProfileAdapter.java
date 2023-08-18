@@ -1,6 +1,7 @@
 package com.sharebysocial.com.Adapter;
 
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +19,15 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.materialswitch.MaterialSwitch;
+import com.google.firebase.database.DatabaseReference;
+import com.sharebysocial.com.Interfaces.ItemTouchHelperAdapter;
 import com.sharebysocial.com.Model.ProfileModel;
 import com.sharebysocial.com.R;
 
 
-public class ProfileAdapter extends FirebaseRecyclerAdapter<ProfileModel, ProfileAdapter.ProfileViewHolder> {
+public class ProfileAdapter extends FirebaseRecyclerAdapter<ProfileModel, ProfileAdapter.ProfileViewHolder> implements ItemTouchHelperAdapter {
 
+    ProfileModel model;
 
     public ProfileAdapter(@NonNull FirebaseRecyclerOptions<ProfileModel> options) {
         super(options);
@@ -32,9 +36,19 @@ public class ProfileAdapter extends FirebaseRecyclerAdapter<ProfileModel, Profil
 
     @Override
     protected void onBindViewHolder(@NonNull ProfileAdapter.ProfileViewHolder holder, int position, @NonNull ProfileModel model) {
-
-
+       this.model = model;
         holder.materialCardView.setOnClickListener(v -> {
+//            Toast.makeText(holder.appIcon.getContext(), "You clicked card", Toast.LENGTH_SHORT).show();
+        });
+
+        holder.visibleBtn.setOnClickListener(v -> {
+            holder.invisibleBtn.setVisibility(View.VISIBLE);
+            holder.visibleBtn.setVisibility(View.INVISIBLE);
+        });
+
+        holder.invisibleBtn.setOnClickListener(v -> {
+            holder.visibleBtn.setVisibility(View.VISIBLE);
+            holder.invisibleBtn.setVisibility(View.INVISIBLE);
         });
 
         changeIconName(holder, model);
@@ -163,9 +177,19 @@ public class ProfileAdapter extends FirebaseRecyclerAdapter<ProfileModel, Profil
         return new ProfileViewHolder(v);
     }
 
+    @Override
+    public void onItemMove(int fromPosition, int toPosition) {
+    }
+
+    @Override
+    public void onItemDismiss(int position) {
+
+        notifyItemRemoved(position);
+    }
+
     public static class ProfileViewHolder extends RecyclerView.ViewHolder {
         MaterialCardView materialCardView;
-        ImageView appIcon;
+        ImageView appIcon, visibleBtn, invisibleBtn;
         TextView appName;
         LinearLayout EditButton;
 
@@ -175,8 +199,8 @@ public class ProfileAdapter extends FirebaseRecyclerAdapter<ProfileModel, Profil
             materialCardView = itemView.findViewById(R.id.ProfileCardClickId);
             appIcon = itemView.findViewById(R.id.appIconId);
             appName = itemView.findViewById(R.id.appNameId);
-
-
+            visibleBtn = itemView.findViewById(R.id.visibleId);
+            invisibleBtn = itemView.findViewById(R.id.invisibleId);
         }
     }
 }

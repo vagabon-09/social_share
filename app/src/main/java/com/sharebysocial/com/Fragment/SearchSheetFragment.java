@@ -98,12 +98,7 @@ public class SearchSheetFragment extends BottomSheetDialogFragment {
                                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).child("location");
                                 List<LocationModel> locationModelList = new ArrayList<>();
                                 locationModelList.add(new LocationModel(latitude, longitude));
-                                reference.setValue(locationModelList).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        dismiss();
-                                    }
-                                });
+                                reference.setValue(locationModelList).addOnSuccessListener(unused -> dismiss());
                             }
 
                         } catch (IOException e) {

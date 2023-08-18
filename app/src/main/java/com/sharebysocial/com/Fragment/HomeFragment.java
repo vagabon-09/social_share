@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,6 +32,7 @@ import com.sharebysocial.com.Adapter.ProfileAdapter;
 import com.sharebysocial.com.Algorithm.NameFormation;
 import com.sharebysocial.com.Helper.InternetWarning;
 import com.sharebysocial.com.Helper.NetworkCheck;
+import com.sharebysocial.com.Helper.SwipeItemTouchHelper;
 import com.sharebysocial.com.Model.ProfileModel;
 import com.sharebysocial.com.R;
 
@@ -72,7 +74,14 @@ public class HomeFragment extends Fragment {
         updateHomePage(view);// Updating home page ui like , name images both are edited using the function
         setButton(view); // all button click action are inside this function
         searchBar();// search implement function
+        settingSwipe();
         return view;
+    }
+
+    private void settingSwipe() {
+        SwipeItemTouchHelper swipeHelper = new SwipeItemTouchHelper(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
+        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeHelper);
+        itemTouchhelper.attachToRecyclerView(recyclerView);
     }
 
     private void fetchAccountData(View view) {
@@ -134,6 +143,10 @@ public class HomeFragment extends Fragment {
     private void updateHomePage(View view) {
         profileImage = view.findViewById(R.id.profile_image_id);
         userName = view.findViewById(R.id.user_name_id);
+
+
+
+
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
                 .child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
                 .child("userProfileData")

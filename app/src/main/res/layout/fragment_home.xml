@@ -6,190 +6,209 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.HomeFragment">
 
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/homeShimmerId"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toStartOf="@+id/notification_Id"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/blue"
+        android:id="@+id/constraintLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/homeShimmerId"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toStartOf="@+id/notification_Id"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/circleImageView3"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
-                android:src="@drawable/profile"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.055"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Loading..."
-                android:textSize="@dimen/_15sdp"
-                app:layout_constraintBottom_toBottomOf="@+id/circleImageView3"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.111"
-                app:layout_constraintStart_toEndOf="@+id/circleImageView3"
-                app:layout_constraintTop_toTopOf="@+id/circleImageView3"
-                app:layout_constraintVertical_bias="0.23" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/circleImageView3"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:src="@drawable/profile"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.055"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Loading..."
-                android:textSize="@dimen/_15sdp"
-                app:layout_constraintBottom_toBottomOf="@+id/circleImageView3"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.111"
-                app:layout_constraintStart_toEndOf="@+id/circleImageView3"
-                app:layout_constraintTop_toTopOf="@+id/circleImageView3"
-                app:layout_constraintVertical_bias="1.0" />
+                <TextView
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loading..."
+                    android:textSize="@dimen/_15sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/circleImageView3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.111"
+                    app:layout_constraintStart_toEndOf="@+id/circleImageView3"
+                    app:layout_constraintTop_toTopOf="@+id/circleImageView3"
+                    app:layout_constraintVertical_bias="0.23" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.facebook.shimmer.ShimmerFrameLayout>
+                <TextView
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loading..."
+                    android:textSize="@dimen/_15sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/circleImageView3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.111"
+                    app:layout_constraintStart_toEndOf="@+id/circleImageView3"
+                    app:layout_constraintTop_toTopOf="@+id/circleImageView3"
+                    app:layout_constraintVertical_bias="1.0" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_image_id"
-        android:layout_width="@dimen/_50sdp"
-        android:layout_height="@dimen/_50sdp"
-        android:layout_marginStart="@dimen/_15sdp"
-        android:layout_marginTop="@dimen/_25sdp"
-        android:src="@drawable/profile"
-        android:visibility="invisible"
-        app:civ_border_color="@color/black"
-        app:civ_border_width="1dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/greeting_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_15sdp"
-        android:fontFamily="@font/blasamiq_regular"
-        android:text="@string/greeting"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_15sdp"
-        android:textStyle="bold"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/user_name_id"
-        app:layout_constraintStart_toEndOf="@+id/profile_image_id"
-        app:layout_constraintTop_toTopOf="@+id/profile_image_id" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
-    <TextView
-        android:id="@+id/user_name_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/popin_regular"
-        android:text="@string/user_name"
-        android:textSize="@dimen/_16sdp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_image_id"
-        app:layout_constraintStart_toStartOf="@+id/greeting_id"
-        app:layout_constraintTop_toBottomOf="@+id/greeting_id" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image_id"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:src="@drawable/profile"
+            android:visibility="invisible"
+            app:civ_border_color="@color/black"
+            app:civ_border_width="1dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/notification_Id"
-        android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_30sdp"
-        android:layout_marginEnd="@dimen/_15sdp"
-        android:contentDescription="@string/notification_desc"
-        android:scaleType="centerCrop"
-        android:src="@drawable/notification"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_image_id"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/profile_image_id" />
+        <TextView
+            android:id="@+id/greeting_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:fontFamily="@font/blasamiq_regular"
+            android:text="@string/greeting"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_15sdp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/user_name_id"
+            app:layout_constraintStart_toEndOf="@+id/profile_image_id"
+            app:layout_constraintTop_toTopOf="@+id/profile_image_id" />
 
-    <View
-        android:id="@+id/valid_notification_id"
-        android:layout_width="@dimen/_7sdp"
-        android:layout_height="@dimen/_7sdp"
-        android:background="@drawable/valid_notification"
-        app:layout_constraintBottom_toBottomOf="@+id/notification_Id"
-        app:layout_constraintEnd_toEndOf="@+id/notification_Id"
-        app:layout_constraintHorizontal_bias="0.766"
-        app:layout_constraintStart_toStartOf="@+id/notification_Id"
-        app:layout_constraintTop_toTopOf="@+id/notification_Id"
-        app:layout_constraintVertical_bias="0.233" />
+        <TextView
+            android:textColor="@color/white"
+            android:id="@+id/user_name_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/popin_regular"
+            android:text="@string/user_name"
+            android:textSize="@dimen/_16sdp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/profile_image_id"
+            app:layout_constraintStart_toStartOf="@+id/greeting_id"
+            app:layout_constraintTop_toBottomOf="@+id/greeting_id" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_43sdp"
-        android:layout_marginTop="@dimen/_25sdp"
-        android:background="@drawable/search_background_layout"
-        app:layout_constraintEnd_toEndOf="@+id/notification_Id"
-        app:layout_constraintStart_toStartOf="@+id/profile_image_id"
-        app:layout_constraintTop_toBottomOf="@+id/user_name_id">
+        <ImageView
+            android:id="@+id/notification_Id"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:contentDescription="@string/notification_desc"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bell_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/profile_image_id"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/profile_image_id" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent">
+        <View
+            android:id="@+id/valid_notification_id"
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
+            android:background="@drawable/valid_notification"
+            app:layout_constraintBottom_toBottomOf="@+id/notification_Id"
+            app:layout_constraintEnd_toEndOf="@+id/notification_Id"
+            app:layout_constraintHorizontal_bias="0.766"
+            app:layout_constraintStart_toStartOf="@+id/notification_Id"
+            app:layout_constraintTop_toTopOf="@+id/notification_Id"
+            app:layout_constraintVertical_bias="0.233" />
 
-            <ImageView
-                android:id="@+id/qr_btn_id"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="15dp"
-                android:contentDescription="@string/qr_btn"
-                android:src="@drawable/qr"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:id="@+id/linearLayout"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_43sdp"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:background="@drawable/search_background_layout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/notification_Id"
+            app:layout_constraintStart_toStartOf="@+id/profile_image_id"
+            app:layout_constraintTop_toBottomOf="@+id/user_name_id">
 
-            <EditText
-                android:id="@+id/homeSearchId"
-                android:layout_width="0dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/_5sdp"
-                android:autofillHints=""
-                android:background="@android:color/transparent"
-                android:hint="@string/search"
-                android:inputType="text"
-                android:paddingStart="@dimen/_10sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/search_btn_id"
-                app:layout_constraintStart_toEndOf="@+id/qr_btn_id"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:background="@android:color/transparent">
 
-            <ImageView
-                android:id="@+id/search_btn_id"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="10dp"
-                android:contentDescription="@string/search_btn_desc"
-                android:src="@drawable/search_icon"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/qr_btn_id"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="15dp"
+                    android:contentDescription="@string/qr_btn"
+                    android:src="@drawable/qr"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <EditText
+                    android:id="@+id/homeSearchId"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:autofillHints=""
+                    android:background="@android:color/transparent"
+                    android:hint="@string/search"
+                    android:inputType="text"
+                    android:paddingStart="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/search_btn_id"
+                    app:layout_constraintStart_toEndOf="@+id/qr_btn_id"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+                <ImageView
+                    android:id="@+id/search_btn_id"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="10dp"
+                    android:contentDescription="@string/search_btn_desc"
+                    android:src="@drawable/search_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_10sdp"
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_20sdp"
         android:fontFamily="@font/popin_medium"
         android:text="@string/all_saved_profiles"
         android:textColor="@color/black"
         android:textSize="@dimen/_17sdp"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/profileRecyclerViewId"
