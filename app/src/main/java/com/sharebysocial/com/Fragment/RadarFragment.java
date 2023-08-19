@@ -1,17 +1,15 @@
 package com.sharebysocial.com.Fragment;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -24,7 +22,6 @@ import com.sharebysocial.com.Algorithm.DistanceCalculator;
 import com.sharebysocial.com.Helper.InternetWarning;
 import com.sharebysocial.com.Helper.NetworkCheck;
 import com.sharebysocial.com.Model.RadarModel;
-import com.sharebysocial.com.R;
 import com.sharebysocial.com.databinding.FragmentRadarBinding;
 
 import java.util.ArrayList;
@@ -99,15 +96,15 @@ public class RadarFragment extends Fragment {
                     DataSnapshot userSnapshot = dataSnapshot.child("userProfileData"); // getting userProfileData form db
                     double lati = locationSnapshot.child("0").child("lati").getValue(Double.class); // getting latitude from db
                     double longi = locationSnapshot.child("0").child("longi").getValue(Double.class); // getting longitude from db
+                    long lstActiveTime = locationSnapshot.child("0").child("updateTime").getValue(long.class);
                     String userName = userSnapshot.child("0").child("userName").getValue(String.class); // getting userName from db
                     String userImage = userSnapshot.child("0").child("userImage").getValue(String.class); // getting userImage form database
                     String userId = dataSnapshot.getKey(); // taking user id from firebase
-
 //                    Log.d("userDistance", "onDataChange: " + DistanceCalculator.calculateDistance(current_user_lati, current_user_longi, lati, longi) + "");
                     int distance = (int) DistanceCalculator.calculateDistance(current_user_lati, current_user_longi, lati, longi);
                     Log.d("distanceRadar", "onDataChange: "+distance+"");
                     if (!Objects.equals(mAuth.getUid(), userId) && distance <= 500) {
-                        radarModel = new RadarModel(userName, userImage, userId, lati, longi); // Setting data to radar model
+                        radarModel = new RadarModel(userName, userImage, userId, lati, longi, lstActiveTime); // Setting data to radar model
                         radarModelArrayList.add(radarModel); // Setting model to arraylist
                     }
                 }

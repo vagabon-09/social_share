@@ -7,40 +7,50 @@
     android:layout_gravity="center"
     tools:context=".Fragment.AddFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <ImageView
-        android:id="@+id/add_page_back_btn"
-        android:layout_width="@dimen/_23sdp"
-        android:layout_height="@dimen/_23sdp"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:background="@drawable/back"
-        android:contentDescription="@string/back_btn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_account_activity_id"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_20sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/add_page_back_btn"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/blue"
+        android:id="@+id/constraintLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/add_page_back_btn"
-        app:layout_constraintTop_toTopOf="@+id/add_page_back_btn" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_marginStart="@dimen/_10sdp"
+            android:id="@+id/add_page_back_btn"
+            android:layout_width="@dimen/_23sdp"
+            android:layout_height="@dimen/_23sdp"
+            android:background="@drawable/baseline_arrow_back_24"
+            android:contentDescription="@string/back_btn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_account_activity_id"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_20sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/add_page_back_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/add_page_back_btn"
+            app:layout_constraintTop_toTopOf="@+id/add_page_back_btn" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <ImageView
+        android:layout_marginTop="@dimen/_50sdp"
         android:id="@+id/ProfileIconId"
         android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_100sdp"
-        android:layout_marginTop="@dimen/_40sdp"
         android:contentDescription="@string/social_share_default_icon"
         android:src="@drawable/share"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
 
     <TextView
         android:id="@+id/textView4"

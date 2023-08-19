@@ -79,6 +79,7 @@ public class SearchSheetFragment extends BottomSheetDialogFragment {
     }
 
     private void getLastLocation() {
+        /* This function is getting current latitude and longitude and current time of that user and sending to database */
         if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             return;
@@ -94,10 +95,14 @@ public class SearchSheetFragment extends BottomSheetDialogFragment {
                             assert addresses != null;
                             latitude = addresses.get(0).getLatitude();
                             longitude = addresses.get(0).getLongitude();
+                            long currentTime = System.currentTimeMillis();
+                            Log.d("searchSheetDebug", "getLastLocation: outside");
+
                             if (latitude != 0 && longitude != 0) {
+                                Log.d("searchSheetDebug", "getLastLocation: inside");
                                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).child("location");
                                 List<LocationModel> locationModelList = new ArrayList<>();
-                                locationModelList.add(new LocationModel(latitude, longitude));
+                                locationModelList.add(new LocationModel(latitude, longitude, currentTime));
                                 reference.setValue(locationModelList).addOnSuccessListener(unused -> dismiss());
                             }
 

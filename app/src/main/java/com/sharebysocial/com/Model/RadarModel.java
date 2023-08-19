@@ -6,20 +6,30 @@ import androidx.room.Entity;
 public class RadarModel {
     private String userName, userImage, userId;
     private double lati, longi;
+    private long updateTime;
 
     public RadarModel() {
     }
 
-    public RadarModel(String userName, String userImage, String userId, double lati, double longi) {
+    public RadarModel(String userName, String userImage, String userId, double lati, double longi, long updateTime) {
         this.userName = userName;
         this.userImage = userImage;
         this.userId = userId;
         this.lati = lati;
         this.longi = longi;
+        this.updateTime = updateTime;
     }
 
     public String getUserName() {
         return userName;
+    }
+
+    public long getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(long updateTime) {
+        this.updateTime = updateTime;
     }
 
     public void setUserName(String userName) {

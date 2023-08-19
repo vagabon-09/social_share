@@ -2,13 +2,23 @@ package com.sharebysocial.com.Model;
 
 public class LocationModel {
     double lati, longi;
+    long updateTime;
 
     public LocationModel() {
     }
 
-    public LocationModel(double lati, double longi) {
+    public LocationModel(double lati, double longi, long updateTime) {
         this.lati = lati;
         this.longi = longi;
+        this.updateTime = updateTime;
+    }
+
+    public long getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(long updateTime) {
+        this.updateTime = updateTime;
     }
 
     public double getLati() {

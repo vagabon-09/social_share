@@ -106,6 +106,8 @@
     <string name="radar_info">radar info details</string>
     <string name="invisible_btn">invisible btn</string>
     <string name="visible_btn">visible btn</string>
+    <string name="location_limit"><![CDATA[< 500 m]]></string>
+    <string name="last_update">12 : 00 PM</string>
 
 
 </resources>
