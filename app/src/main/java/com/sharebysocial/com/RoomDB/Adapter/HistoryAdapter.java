@@ -1,5 +1,6 @@
 package com.sharebysocial.com.RoomDB.Adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.sharebysocial.com.Activities.FriendViewActivity;
+import com.sharebysocial.com.Fragment.HistoryFragment;
 import com.sharebysocial.com.Helper.DateConverter;
 import com.sharebysocial.com.R;
 import com.sharebysocial.com.RoomDB.Helper.DatabaseHelper;
@@ -46,11 +49,16 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
             return false;
         });
         holder.sf_deleteBtn.setOnClickListener(v -> { // when click on delete button
-
             helper.historyDAO().deleteHistory(historyModels.get(position).getUserId()); // deleting data from delete history database
             holder.sf_deleteBtn.setVisibility(View.GONE); // delete button visibility is gone
             historyModels.remove(position); // removing data from history models
             notifyItemRemoved(position); // now notifying to recycler view that data is removed
+        });
+
+        holder.cardBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(holder.sf_circleImg.getContext(), FriendViewActivity.class);
+            intent.putExtra("profileId", historyModels.get(position).getUserId());
+            holder.sf_deleteBtn.getContext().startActivity(intent);
         });
 
     }
