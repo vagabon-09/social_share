@@ -1,11 +1,14 @@
 package com.sharebysocial.com.RoomDB.Adapter;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -15,6 +18,8 @@ import com.bumptech.glide.Glide;
 import com.sharebysocial.com.Activities.FriendViewActivity;
 import com.sharebysocial.com.Fragment.HistoryFragment;
 import com.sharebysocial.com.Helper.DateConverter;
+import com.sharebysocial.com.Helper.InternetWarning;
+import com.sharebysocial.com.Helper.NetworkCheck;
 import com.sharebysocial.com.R;
 import com.sharebysocial.com.RoomDB.Helper.DatabaseHelper;
 import com.sharebysocial.com.RoomDB.Model.HistoryModel;
@@ -56,9 +61,14 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
         });
 
         holder.cardBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(holder.sf_circleImg.getContext(), FriendViewActivity.class);
-            intent.putExtra("profileId", historyModels.get(position).getUserId());
-            holder.sf_deleteBtn.getContext().startActivity(intent);
+//            Log.d("isConnectedWithInternet", "onBindViewHolder: " + NetworkCheck.isNetworkConnected(v.getContext())+"");
+            if (NetworkCheck.isNetworkConnected(v.getContext())) {
+                Toast.makeText(holder.sf_circleImg.getContext(), "You are not connected with Internet", Toast.LENGTH_SHORT).show();
+            } else {
+                Intent intent = new Intent(holder.sf_circleImg.getContext(), FriendViewActivity.class);
+                intent.putExtra("profileId", historyModels.get(position).getUserId());
+                holder.sf_deleteBtn.getContext().startActivity(intent);
+            }
         });
 
     }

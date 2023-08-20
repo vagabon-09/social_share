@@ -9,4 +9,8 @@
     <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="cornerSize">50%</item>
     </style>
+
+    <style name="daySwitch">
+        <item name="android:trackTint">@color/blue</item>
+    </style>
 </resources>
