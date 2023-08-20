@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.sharebysocial.com.Activities.FriendViewActivity;
+import com.sharebysocial.com.Helper.DateConverter;
 import com.sharebysocial.com.Model.RadarModel;
 import com.sharebysocial.com.R;
 import com.sharebysocial.com.RoomDB.Helper.DatabaseHelper;
@@ -52,7 +53,7 @@ public class RadarAdapter extends RecyclerView.Adapter<RadarAdapter.MyViewHolder
         String profileImg = radarModelsList.get(position).getUserImage();
         String userName = radarModelsList.get(position).getUserName();
         Glide.with(holder.scanningName.getContext()).load(profileImg).centerCrop().into(holder.scanningImage);
-
+        holder.lastUpdate.setText(DateConverter.globalConvertTime("hh:mm a", radarModelsList.get(position).getUpdateTime()));
         holder.friendScreen.setOnClickListener(v -> { // when some one click on friend icon button
             insertIntoDB(holder, position); // Inserting data to room database
             Intent intent = new Intent(context, FriendViewActivity.class);
@@ -100,7 +101,7 @@ public class RadarAdapter extends RecyclerView.Adapter<RadarAdapter.MyViewHolder
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         CircleImageView scanningImage;
-        TextView scanningName;
+        TextView scanningName, lastUpdate;
         MaterialCardView friendScreen;
         LinearLayout shimmerLinear;
         RecyclerView radderRv;
@@ -112,6 +113,7 @@ public class RadarAdapter extends RecyclerView.Adapter<RadarAdapter.MyViewHolder
             scanningName = itemView.findViewById(R.id.scanning_user_name_id);
             shimmerLinear = itemView.findViewById(R.id.fragmentRadarShimmerId);
             radderRv = itemView.findViewById(R.id.searchResultScanningId);
+            lastUpdate = itemView.findViewById(R.id.updateStatus);
         }
     }
 }

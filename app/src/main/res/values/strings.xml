@@ -108,6 +108,9 @@
     <string name="visible_btn">visible btn</string>
     <string name="location_limit"><![CDATA[< 500 m]]></string>
     <string name="last_update">12 : 00 PM</string>
+    <string name="radar_page_info">Welcome to the hub of real-time connections! On this page, discover fellow users who are currently within a 500-meter radius or have recently been in the vicinity. Seamlessly forge connections through various social media platforms and open doors to new friendships. Engage, chat, and create meaningful bonds with those who share your local experiences. Start connecting and expanding your network right where you are.</string>
+    <string name="meaning_of_the_icons">Meaning of the Icons</string>
+    <string name="friend_info">Discover more about your friends and connections! On this page, you can view all the social media profiles of the targeted user. Just tap on the profile icons to instantly access their profiles. Dive into their online presence and get to know them better. It\'s your gateway to understanding your connections on a whole new level.</string>
 
 
 </resources>

@@ -35,13 +35,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull HistoryAdapter.MyViewHolder holder, int position) {
         DatabaseHelper helper = DatabaseHelper.getDB(holder.sf_circleImg.getContext()); // created object of DatabaseHelper class
-        DateConverter dateConverter = new DateConverter(); // created object of DateConverter class
         //setting user name from firebase db
         holder.sf_name.setText(historyModels.get(position).getUserName());
         // Using Glide library setting image to image view (from url)
         Glide.with(holder.sf_circleImg.getContext()).load(historyModels.get(position).getUserImage()).into(holder.sf_circleImg);
         //Converting millisecond in customise data , month and year
-        holder.sf_date.setText(dateConverter.convertDate("dd-MMM-yy", historyModels, position));
+        holder.sf_date.setText(DateConverter.globalConvertTime("dd-MMM-yy", historyModels.get(position).getDate()));
         holder.cardBtn.setOnLongClickListener(v -> { // when long click on history card
             holder.sf_deleteBtn.setVisibility(View.VISIBLE); // make delete button visible
             return false;

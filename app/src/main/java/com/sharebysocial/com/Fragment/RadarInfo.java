@@ -1,32 +1,34 @@
 package com.sharebysocial.com.Fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.sharebysocial.com.R;
 
-public class BottomSheetfFragment extends BottomSheetDialogFragment {
+public class RadarInfo extends BottomSheetDialogFragment {
 
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    static LinearLayout DeleteButton;
-    static LinearLayout EditButton;
 
-
-    public BottomSheetfFragment() {
+    public RadarInfo() {
         // Required empty public constructor
     }
 
-    // TODO: Rename and change types and number of parameters
-    public static BottomSheetfFragment newInstance(String param1, String param2) {
-        BottomSheetfFragment fragment = new BottomSheetfFragment();
+    public static RadarInfo newInstance(String param1, String param2) {
+        RadarInfo fragment = new RadarInfo();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -47,19 +49,8 @@ public class BottomSheetfFragment extends BottomSheetDialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_bottomsheetf, container, false);
-        /*In this function we are setting up all the button that can we perform all the jobs*/
-        fId(v);
-        return v;
+        View view = inflater.inflate(R.layout.fragment_radar_info, container, false);
+        view.setBackgroundColor(Color.TRANSPARENT);
+        return view;
     }
-
-
-    private void fId(View v) {
-        DeleteButton = v.findViewById(R.id.deleteBtnId);
-        EditButton = v.findViewById(R.id.editButtonId);
-    }
-
-    // Doing operation to delete item from recycler view
-
-
 }

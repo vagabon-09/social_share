@@ -64,7 +64,7 @@ public class RadarFragment extends Fragment {
         if (NetworkCheck.isNetworkConnected(requireContext())) {
             InternetWarning internetWarning = new InternetWarning(requireActivity());
         } else {
-            showBottomSheet();
+            showSearchingBottomSheet();
         }
     }
 
@@ -75,9 +75,14 @@ public class RadarFragment extends Fragment {
         View view = binding.getRoot();
         mAuth = FirebaseAuth.getInstance();
         setView();
+        setButton(view);
         binding.searchResultScanningId.setLayoutManager(new LinearLayoutManager(requireContext()));
         fetchFirebase();
         return view;
+    }
+
+    private void setButton(View view) {
+        binding.infoBtnId.setOnClickListener(v -> RadarFragmentInfo()); // this button will show the information bottom sheet of radar search fragment page
     }
 
     private void fetchFirebase() {
@@ -121,13 +126,18 @@ public class RadarFragment extends Fragment {
 
     }
 
-    private void showBottomSheet() {
+    private void showSearchingBottomSheet() {
         SearchSheetFragment searchSheetFragment = new SearchSheetFragment();
         searchSheetFragment.show((((AppCompatActivity) requireContext()).getSupportFragmentManager()), searchSheetFragment.getTag());
         searchSheetFragment.setCancelable(false);
     }
 
-    private void setView() {
+    private void RadarFragmentInfo() {
+        RadarInfo radarInfo = new RadarInfo();
+        radarInfo.show((((AppCompatActivity) requireContext()).getSupportFragmentManager()), radarInfo.getTag());
+        radarInfo.setCancelable(true);
+    }
 
+    private void setView() {
     }
 }

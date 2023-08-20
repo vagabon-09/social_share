@@ -36,11 +36,6 @@ import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ProfileFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -51,8 +46,6 @@ public class ProfileFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private MaterialSwitch nightModeSwitch;
-    private LinearLayout logoutBtn;
     private CircleImageView profileImage;
     private TextView profileName;
     private ShimmerFrameLayout shimmerFrameLayout;
@@ -136,7 +129,7 @@ public class ProfileFragment extends Fragment {
 
 
     private void logOutBtn(View view) {
-        logoutBtn = view.findViewById(R.id.logOutBtn);
+        LinearLayout logoutBtn = view.findViewById(R.id.logOutBtn);
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,7 +156,7 @@ public class ProfileFragment extends Fragment {
 
     private void nightModeSetUp(View view) {
         // Accessing Button
-        nightModeSwitch = view.findViewById(R.id.nightModeBtnId);
+        MaterialSwitch nightModeSwitch = view.findViewById(R.id.nightModeBtnId);
         nightModeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
 

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical"
+    tools:context=".Fragment.RadarInfo">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationView3"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_150sdp"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@android:color/transparent"
+        android:foregroundGravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/thinking" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:gravity="center"
+        android:text="@string/radar_page_info"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView3" />
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_marginStart="@dimen/_15sdp"-->
+    <!--        android:layout_marginEnd="@dimen/_10sdp"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="horizontal">-->
+
+    <!--        <View-->
+    <!--            android:layout_gravity="center"-->
+    <!--            android:layout_width="@dimen/_10sdp"-->
+    <!--            android:layout_height="@dimen/_10sdp"-->
+    <!--            android:background="@drawable/black_circle" />-->
+
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginStart="@dimen/_12sdp"-->
+    <!--            android:text="@string/meaning_of_the_icons"-->
+    <!--            android:textSize="@dimen/_12sdp" />-->
+    <!--    </LinearLayout>-->
+
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="@dimen/_10sdp"-->
+    <!--        android:layout_marginTop="@dimen/_10sdp"-->
+    <!--        android:layout_marginEnd="@dimen/_10sdp"-->
+    <!--        android:orientation="horizontal">-->
+
+    <!--        <ImageView-->
+    <!--            android:layout_width="@dimen/_20sdp"-->
+    <!--            android:layout_height="@dimen/_20sdp"-->
+    <!--            android:src="@drawable/last_update" />-->
+
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_gravity="center"-->
+    <!--            android:layout_marginStart="@dimen/_10sdp"-->
+    <!--            android:text="Last active time of the ueser" />-->
+    <!--    </LinearLayout>-->
+    <!--    this layout is using to make space in bottom -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_30sdp"
+        android:orientation="horizontal" />
+</LinearLayout>
