@@ -73,7 +73,6 @@ public class HomeFragment extends Fragment {
         setButton(view); // all button click action are inside this function
         searchBar();// search implement function
         settingSwipe();
-        DayNightMode.autoDayNight(getContext()); //  setting night mode or day mode according to the toggle button active
         return view;
     }
 

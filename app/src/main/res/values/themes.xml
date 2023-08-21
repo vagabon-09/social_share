@@ -13,4 +13,26 @@
     <style name="daySwitch">
         <item name="android:trackTint">@color/blue</item>
     </style>
+
+    <style name="backGround">
+        <item name="android:background">@color/blue</item>
+    </style>
+
+    <style name="BottomNav">
+        <item name="android:background">@color/white</item>
+        <item name="itemIconTint">@color/night_bg</item>
+    </style>
+
+    <style name="textColor">
+        <item name="color">@color/black</item>
+    </style>
+
+    <style name="iconTint">
+        <item name="android:tint">@color/black</item>
+    </style>
+
+<style name="infoSheetBg">
+    <item name="android:background">@color/white</item>
+</style>
+
 </resources>

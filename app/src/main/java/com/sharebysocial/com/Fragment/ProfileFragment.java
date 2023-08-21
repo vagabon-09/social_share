@@ -1,12 +1,14 @@
 package com.sharebysocial.com.Fragment;
 
 import static com.sharebysocial.com.Helper.DayNightMode.activeDayNight;
+import static com.sharebysocial.com.Helper.DayNightMode.isDayNight;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -183,24 +185,42 @@ public class ProfileFragment extends Fragment {
     }
 
     private void nightModeSetUp(View view) {
+        int postDelayed = 400;
         // Accessing Button
         nightModeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 nightModeSwitch.setThumbIconResource(R.drawable.moon_icon);
                 //Changing material switch track color
-                nightModeSwitch.setTrackTintList(trackTint("#1877F2")); // changing track color
+                nightModeSwitch.setTrackTintList(trackTint("#1d3964"));  // changing track color
                 //Changing thumb color
                 nightModeSwitch.setThumbTintList(thumbColor("#F2F2F2"));
-                activeDayNight(true, profileImage.getContext()); // This function is used to set day night button clicked or not
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+                new Handler().postDelayed(() -> { // making delay for smooth day night button animation
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    if (!isDayNight(getContext())) {
+                        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationId);
+                        bottomNavigationView.setSelectedItemId(R.id.home_btn);
+                    }
+                    activeDayNight(true, profileImage.getContext()); // This function is used to set day night button clicked or not
+                }, postDelayed);
+
+
             } else {
                 nightModeSwitch.setThumbIconResource(R.drawable.sun_icon_two);
                 //Changing material switch track color
-                nightModeSwitch.setTrackTintList(trackTint("#FA0404")); // Changing track color
+                nightModeSwitch.setTrackTintList(trackTint("#1877F2")); // changing track color
                 //Changing thumb color
                 nightModeSwitch.setThumbTintList(thumbColor("#00000000"));
-                activeDayNight(false, profileImage.getContext()); // This function is used to set day night mode clicked or not
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+                new Handler().postDelayed(() -> {
+                    if (isDayNight(getContext())) { // making delay for smooth day night button animation
+                        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationId);
+                        bottomNavigationView.setSelectedItemId(R.id.home_btn);
+                    }
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    activeDayNight(false, profileImage.getContext()); // This function is used to set day night mode clicked or not
+                }, postDelayed);
+
             }
         });
 

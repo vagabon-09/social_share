@@ -36,6 +36,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                style="@style/textColor"
                 android:id="@+id/scanning_user_name_id"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -48,6 +49,7 @@
                 app:layout_constraintTop_toTopOf="@+id/profile_image" />
 
             <ImageView
+                style="@style/iconTint"
                 android:id="@+id/imageView"
                 android:layout_width="@dimen/_15sdp"
                 android:layout_height="@dimen/_15sdp"
@@ -57,6 +59,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/scanning_user_name_id" />
 
             <TextView
+                style="@style/textColor"
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -67,6 +70,7 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView" />
 
             <ImageView
+                style="@style/iconTint"
                 android:id="@+id/imageView6"
                 android:layout_width="@dimen/_15sdp"
                 android:layout_height="@dimen/_15sdp"
@@ -77,6 +81,7 @@
                 app:layout_constraintTop_toTopOf="@+id/textView2" />
 
             <TextView
+                style="@style/textColor"
                 android:id="@+id/updateStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

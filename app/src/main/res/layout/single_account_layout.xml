@@ -27,6 +27,7 @@
             android:contentDescription="@string/profile_icon" />
 
         <TextView
+            style="@style/textColor"
             android:id="@+id/appNameId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

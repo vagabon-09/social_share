@@ -9,6 +9,7 @@ import android.os.Handler;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.sharebysocial.com.Helper.AnimationR;
+import com.sharebysocial.com.Helper.DayNightMode;
 import com.sharebysocial.com.Helper.Helper;
 import com.sharebysocial.com.databinding.ActivitySplashBinding;
 

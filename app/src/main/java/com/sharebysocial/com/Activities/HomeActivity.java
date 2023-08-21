@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -16,6 +18,7 @@ import com.sharebysocial.com.Fragment.HomeFragment;
 import com.sharebysocial.com.Fragment.ProfileFragment;
 import com.sharebysocial.com.Fragment.RadarFragment;
 
+import com.sharebysocial.com.Helper.DayNightMode;
 import com.sharebysocial.com.R;
 import com.sharebysocial.com.Helper.Helper;
 import com.sharebysocial.com.databinding.ActivityHomeBinding;
@@ -30,6 +33,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         super.onCreate(savedInstanceState);
+        DayNightMode.autoDayNight(this); //  setting night mode or day mode according to the toggle button active
         setContentView(binding.getRoot());
         helper = new Helper();
         fragmentManager = getSupportFragmentManager();
@@ -40,6 +44,13 @@ public class HomeActivity extends AppCompatActivity {
          * Bottom navigation bar operation
          */
         bottomNavigation();
+        customiseBottomNav();
+    }
+
+    private void customiseBottomNav() {
+        if (DayNightMode.isDayNight(this)) {
+            binding.bottomNavigationId.setItemIconTintList(ColorStateList.valueOf(R.drawable.night_nav_selector));
+        }
     }
 
 

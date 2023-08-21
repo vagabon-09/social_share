@@ -32,22 +32,22 @@
         app:layout_constraintTop_toTopOf="@+id/circleImageView">
 
         <TextView
+            style="@style/textColor"
             android:id="@+id/sf_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:text="@string/history_user_name"
-            android:textColor="@color/black"
             android:textSize="@dimen/_15sdp" />
 
         <TextView
+            style="@style/textColor"
             android:id="@+id/sf_user_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:text="@string/date"
-            android:textColor="@color/black"
             android:textSize="@dimen/_12sdp" />
     </LinearLayout>
 
