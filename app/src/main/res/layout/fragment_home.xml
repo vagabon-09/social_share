@@ -166,6 +166,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
+                    style="@style/textColor"
                     android:id="@+id/homeSearchId"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"

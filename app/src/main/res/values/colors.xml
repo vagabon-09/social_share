@@ -17,6 +17,8 @@
     <color name="friend_bg_color_one">#6B95FF</color>
     <color name="friend_bg_color_two">#030C1E</color>
 
+<color name="air_blue">#00308F</color>
+<color name="navi_blue">#13274F</color>
 <!--   night color -->
     <color name="night_bg">#1d3964</color>
 

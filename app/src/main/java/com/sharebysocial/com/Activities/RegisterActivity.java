@@ -1,5 +1,6 @@
 package com.sharebysocial.com.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -14,12 +15,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.sharebysocial.com.Helper.Helper;
@@ -38,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
+
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 100;
 
@@ -108,11 +112,11 @@ public class RegisterActivity extends AppCompatActivity {
         if (requestCode == RC_SIGN_IN) {
 
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            Log.d("step-2", "onActivityResult: " + "Yes it is here");
+//            Log.d("step-2", "onActivityResult: " + "Yes it is here");
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                Log.d("SUCCESS", "firebaseAuthWithGoogle:" + account.getId());
+//                Log.d("SUCCESS", "firebaseAuthWithGoogle:" + account.getId());
                 firebaseAuthWithGoogle(account.getIdToken());
 
             } catch (ApiException e) {
@@ -131,7 +135,25 @@ public class RegisterActivity extends AppCompatActivity {
                         // Sign in success, update UI with the signed-in user's information
                         FirebaseUser user = mAuth.getCurrentUser();
                         assert user != null;
-                        updateUI(user);
+                        FirebaseAuth.getInstance().fetchSignInMethodsForEmail(user.getEmail()).addOnCompleteListener(task1 -> {
+                            /* this function is checking is this account is already registered or not */
+                            if (task1.isSuccessful()) {
+                                SignInMethodQueryResult result = task1.getResult();
+                                List<String> signInMethods = result.getSignInMethods();
+
+                                /*If signInMethods is not null or signInMethods is empty mean this email is not register, if it is not null
+                                 * mean this email is already present according to this if or else part will run */
+                                if (signInMethods == null && signInMethods.isEmpty()) {
+                                    updateUI(user);
+                                } else {
+                                    Toast.makeText(RegisterActivity.this, "Already register account", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }
+                        });
+
 //                        Toast.makeText(this, "Login", Toast.LENGTH_SHORT).show();
                     } else {
                         // If sign in fails, display a message to the user.

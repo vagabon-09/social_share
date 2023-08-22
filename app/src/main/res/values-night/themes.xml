@@ -13,6 +13,8 @@
     </style>
     <style name="textColor">
         <item name="android:textColor">@color/night_bg</item>
+        <item name="android:textColorHint">@color/navi_blue</item>
+        <item name="indicatorColor">@color/friend_bg_color_two</item>
     </style>
 
     <style name="iconTint">

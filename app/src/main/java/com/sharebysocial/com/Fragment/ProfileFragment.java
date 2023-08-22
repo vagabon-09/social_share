@@ -1,5 +1,6 @@
 package com.sharebysocial.com.Fragment;
 
+import static android.app.Activity.RESULT_OK;
 import static com.sharebysocial.com.Helper.DayNightMode.activeDayNight;
 import static com.sharebysocial.com.Helper.DayNightMode.isDayNight;
 
@@ -7,19 +8,24 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -30,15 +36,21 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.sharebysocial.com.Activities.SignUpActivity;
 import com.sharebysocial.com.Helper.DayNightMode;
-import com.sharebysocial.com.Helper.Helper;
 import com.sharebysocial.com.Helper.InternetWarning;
 import com.sharebysocial.com.Helper.NetworkCheck;
 import com.sharebysocial.com.R;
@@ -61,6 +73,8 @@ public class ProfileFragment extends Fragment {
     private TextView profileName;
     private ShimmerFrameLayout shimmerFrameLayout;
     MaterialSwitch nightModeSwitch;
+    FirebaseUser firebaseUser;
+    final int PICK_IMAGE_REQUEST = 1;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -109,7 +123,50 @@ public class ProfileFragment extends Fragment {
     }
 
     private void setButton(View view) {
+        LinearLayout editProfileBtn = view.findViewById(R.id.edit_profile_id);
+        ImageView editProfileImage = view.findViewById(R.id.edit_profile_img);
+        ImageView editProfileName = view.findViewById(R.id.edit_profile_name);
+        final int[] count = {0};
+        editProfileBtn.setOnClickListener(v -> { // Edit profile button
+            if (count[0] == 0) {
+                count[0]++;
+                editProfileImage.setVisibility(View.VISIBLE);
+                editProfileName.setVisibility(View.VISIBLE);
+            } else {
+                count[0]--;
+                editProfileImage.setVisibility(View.GONE);
+                editProfileName.setVisibility(View.GONE);
+            }
+        });
+        editProfileImage.setOnClickListener(v -> changePhoto());
 
+
+    }
+
+    private void changePhoto() {
+
+
+// Inside your activity or fragment
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri image_uri = data.getData();
+            profileImage.setImageURI(image_uri);
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference(FirebaseAuth.getInstance().getUid());
+            firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+            storageRef.putFile(image_uri).addOnSuccessListener(taskSnapshot -> storageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                reference.child(FirebaseAuth.getInstance().getUid()).child("userProfileData").child("0").child("userImage").setValue(uri.toString()).addOnSuccessListener(unused ->
+                        Toast.makeText(getContext(), "Successfully", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> {
+                    Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
+                });
+            }));
+        }
     }
 
     private void setView(View view) {
@@ -117,6 +174,7 @@ public class ProfileFragment extends Fragment {
         profileImage = view.findViewById(R.id.profile_page_image_id);
         profileName = view.findViewById(R.id.profile_page_user_name_id);
         nightModeSwitch = view.findViewById(R.id.nightModeBtnId);
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     }
 
     private void fetchFirebaseData(View view) {
