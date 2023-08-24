@@ -12,16 +12,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
@@ -36,19 +37,15 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.sharebysocial.com.Activities.SignUpActivity;
 import com.sharebysocial.com.Helper.DayNightMode;
 import com.sharebysocial.com.Helper.InternetWarning;
@@ -75,6 +72,8 @@ public class ProfileFragment extends Fragment {
     MaterialSwitch nightModeSwitch;
     FirebaseUser firebaseUser;
     final int PICK_IMAGE_REQUEST = 1;
+    String input;
+    String pName;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -126,6 +125,9 @@ public class ProfileFragment extends Fragment {
         LinearLayout editProfileBtn = view.findViewById(R.id.edit_profile_id);
         ImageView editProfileImage = view.findViewById(R.id.edit_profile_img);
         ImageView editProfileName = view.findViewById(R.id.edit_profile_name);
+        LinearLayout editProfileLayout = view.findViewById(R.id.updateProfileNameId);
+        ImageView doneUpdate = view.findViewById(R.id.updateDoneBtnId);
+        EditText updateText = view.findViewById(R.id.profileUpdateEditText);
         final int[] count = {0};
         editProfileBtn.setOnClickListener(v -> { // Edit profile button
             if (count[0] == 0) {
@@ -139,13 +141,58 @@ public class ProfileFragment extends Fragment {
             }
         });
         editProfileImage.setOnClickListener(v -> changePhoto());
+        editProfileName.setOnClickListener(v -> {
+            editProfileLayout.setVisibility(View.VISIBLE);
+            editProfileName.setVisibility(View.GONE);
+            profileName.setVisibility(View.GONE);
+            input = updateText.getText().toString();
+            pName = profileName.getText().toString();
+            updateText.setText(pName);
+        });
+        doneUpdate.setOnClickListener(v -> {
+            input = updateText.getText().toString();
+            pName = profileName.getText().toString();
+            if (input.length() != 0) {
+                editProfileLayout.setVisibility(View.GONE);
+            } else {
+                Toast.makeText(getContext(), "Please enter Your name .", Toast.LENGTH_SHORT).show();
+            }
+            profileName.setVisibility(View.VISIBLE); // making profile name visible
+            profileName.setText(input); // updating profile name to the textview
+            updateTextFirebase(input);
+        });
+        updateText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                int count = s.length();
+                if (count > 0) {
+                    doneUpdate.setVisibility(View.VISIBLE);
+                } else {
+                    doneUpdate.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
 
 
     }
 
+    private void updateTextFirebase(String input) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        reference.child(FirebaseAuth.getInstance().getUid()).child("userProfileData").child("0").child("userName").setValue(input);
+    }
+
+
     private void changePhoto() {
-
-
 // Inside your activity or fragment
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
@@ -155,16 +202,18 @@ public class ProfileFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri image_uri = data.getData();
-            profileImage.setImageURI(image_uri);
-            StorageReference storageRef = FirebaseStorage.getInstance().getReference(FirebaseAuth.getInstance().getUid());
-            firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-            storageRef.putFile(image_uri).addOnSuccessListener(taskSnapshot -> storageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+            Uri image_uri = data.getData(); // getting gallery image uri
+            profileImage.setImageURI(image_uri); // setting that image to image view in app
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference(FirebaseAuth.getInstance().getUid()); // getting firebase storage location
+            firebaseUser = FirebaseAuth.getInstance().getCurrentUser(); // getting firebase user
+            storageRef.putFile(image_uri).addOnSuccessListener(taskSnapshot -> storageRef.getDownloadUrl().addOnSuccessListener(uri -> { // sending that image to firebase
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-                reference.child(FirebaseAuth.getInstance().getUid()).child("userProfileData").child("0").child("userImage").setValue(uri.toString()).addOnSuccessListener(unused ->
-                        Toast.makeText(getContext(), "Successfully", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> {
-                    Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
-                });
+                reference.child(FirebaseAuth.getInstance().getUid()).child("userProfileData").child("0").child("userImage").setValue(uri.toString())
+                        .addOnSuccessListener(unused ->
+                                Toast.makeText(getContext(), "Successfully Changed Profile image.", Toast.LENGTH_SHORT).show())
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(getContext(), "Profile Image is not changed.", Toast.LENGTH_SHORT).show();
+                        });
             }));
         }
     }
@@ -237,6 +286,7 @@ public class ProfileFragment extends Fragment {
         signInClient.signOut().addOnCompleteListener(task -> {
             // After logout, the user will be able to select an email again for sign-in.
             FirebaseAuth.getInstance().signOut();
+            DayNightMode.activeDayNight(true, getContext());
             Intent intent = new Intent(getContext(), SignUpActivity.class);
             startActivity(intent);
         });

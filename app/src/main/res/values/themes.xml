@@ -31,9 +31,22 @@
         <item name="android:tint">#002244</item>
     </style>
 
-<style name="infoSheetBg">
-    <item name="android:background">@color/white</item>
-</style>
+    <style name="infoSheetBg">
+        <item name="android:background">@color/white</item>
+    </style>
 
+    <style name="btnTextColor">
+        <item name="android:textColor">@color/blue</item>
+    </style>
+
+    <style name="btnBackGround">
+        <item name="android:background">@drawable/save_btn</item>
+        <item name="backgroundTint">@color/blue</item>
+    </style>
+
+    <style name="cancelBtnBg">
+        <item name="android:background">@drawable/cancle_btn</item>
+        <item name="android:textColor">@color/blue</item>
+    </style>
 
 </resources>

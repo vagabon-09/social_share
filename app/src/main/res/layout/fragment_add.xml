@@ -59,20 +59,20 @@
         android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_55sdp"
         android:text="@string/account_name"
-        android:textColor="@color/black"
+        style="@style/textColor"
         android:textSize="@dimen/_17sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ProfileIconId" />
 
     <Spinner
+        android:background="@drawable/user_input_field"
+        style="@style/textColor"
         android:id="@+id/profile_spinner_id"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_37sdp"
         android:layout_margin="@dimen/_17sdp"
         android:layout_marginTop="@dimen/_10sdp"
-        android:background="@color/ash"
         android:paddingStart="@dimen/_13sdp"
-
         android:spinnerMode="dropdown"
         app:layout_constraintStart_toStartOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -83,12 +83,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_20sdp"
         android:text="@string/username_title"
-        android:textColor="@color/black"
+        style="@style/textColor"
         android:textSize="@dimen/_17sdp"
         app:layout_constraintStart_toStartOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/profile_spinner_id" />
 
     <EditText
+        style="@style/textColor"
         android:id="@+id/profile_find_id"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_37sdp"
@@ -118,20 +119,19 @@
             android:layout_marginStart="@dimen/_20sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             android:layout_weight="1"
-            android:background="@drawable/cancle_btn"
             android:text="@string/cancle"
-            android:textColor="@color/blue"
+            style="@style/cancelBtnBg"
              />
 
         <com.google.android.material.button.MaterialButton
+            style="@style/btnBackGround"
             android:id="@+id/accountSendDataId"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_20sdp"
             android:layout_weight="1"
-            android:background="@drawable/save_btn"
             android:text="@string/save_btn"
-            app:backgroundTint="@color/deep_blue" />
+            android:textColor="@color/white" />
 
 
     </LinearLayout>

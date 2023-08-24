@@ -1,17 +1,23 @@
 package com.sharebysocial.com.Fragment;
-
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -30,7 +36,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.sharebysocial.com.Adapter.ProfileAdapter;
 import com.sharebysocial.com.Algorithm.NameFormation;
-import com.sharebysocial.com.Helper.DayNightMode;
 import com.sharebysocial.com.Helper.InternetWarning;
 import com.sharebysocial.com.Helper.NetworkCheck;
 import com.sharebysocial.com.Helper.SwipeItemTouchHelper;
@@ -48,6 +53,7 @@ public class HomeFragment extends Fragment {
     private FirebaseAuth mAuth;
     private RecyclerView recyclerView;
     private ShimmerFrameLayout homeShimmer, recyclerShimmer;
+    final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
 
     public HomeFragment() {
@@ -60,6 +66,7 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         internetCheck();
         mAuth = FirebaseAuth.getInstance();
         View view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -73,7 +80,19 @@ public class HomeFragment extends Fragment {
         setButton(view); // all button click action are inside this function
         searchBar();// search implement function
         settingSwipe();
+        requestLocationPermission();
         return view;
+    }
+
+    private void requestLocationPermission() {
+        // Check if the permission is granted
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted, request it
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+        } else {
+            // Permission is already granted, you can proceed with using location
+            Toast.makeText(getContext(), "Already permission granted", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

@@ -6,12 +6,15 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -35,6 +38,7 @@ public class SearchSheetFragment extends BottomSheetDialogFragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
     private FusedLocationProviderClient fusedLocationProviderClient;
 
@@ -74,9 +78,24 @@ public class SearchSheetFragment extends BottomSheetDialogFragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_search_sheet, container, false);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity());
-        getLastLocation();
+        requestLocationPermission();
+
         return v;
     }
+
+    private void requestLocationPermission() {
+        // Check if the permission is granted
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted, request it
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+
+        } else {
+            // Permission is already granted, you can proceed with using location
+//            Toast.makeText(getContext(), "Already permission granted", Toast.LENGTH_SHORT).show();
+            getLastLocation();
+        }
+    }
+
 
     private void getLastLocation() {
         /* This function is getting current latitude and longitude and current time of that user and sending to database */

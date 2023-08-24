@@ -25,4 +25,17 @@
         <item name="android:background">@color/night_bg</item>
     </style>
 
+    <style name="btnBackGround">
+        <item name="android:background">@drawable/save_btn_night</item>
+        <item name="backgroundTint">@color/night_bg</item>
+    </style>
+
+    <style name="btnTextColor">
+        <item name="android:textColor">@color/night_bg</item>
+    </style>
+
+    <style name="cancelBtnBg">
+        <item name="android:background">@drawable/cancel_btn_night</item>
+        <item name="android:textColor">@color/night_bg</item>
+    </style>
 </resources>

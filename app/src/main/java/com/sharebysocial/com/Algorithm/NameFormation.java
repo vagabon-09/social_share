@@ -12,10 +12,10 @@ public class NameFormation {
         if (i + 1 == Name.length()) {
             return sName.toString();
         }
-        if (i <= Name.length()) {
+        if (i < Name.length()) {
             sName.append(Name.charAt(i));
             sName.append(Name.charAt(i + 1));
         }
-        return sName.toString() + "...";
+        return sName + ".";
     }
 }

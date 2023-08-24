@@ -19,7 +19,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthProvider;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.SignInMethodQueryResult;
@@ -135,26 +137,16 @@ public class RegisterActivity extends AppCompatActivity {
                         // Sign in success, update UI with the signed-in user's information
                         FirebaseUser user = mAuth.getCurrentUser();
                         assert user != null;
-                        FirebaseAuth.getInstance().fetchSignInMethodsForEmail(user.getEmail()).addOnCompleteListener(task1 -> {
-                            /* this function is checking is this account is already registered or not */
-                            if (task1.isSuccessful()) {
-                                SignInMethodQueryResult result = task1.getResult();
-                                List<String> signInMethods = result.getSignInMethods();
-
-                                /*If signInMethods is not null or signInMethods is empty mean this email is not register, if it is not null
-                                 * mean this email is already present according to this if or else part will run */
-                                if (signInMethods == null && signInMethods.isEmpty()) {
-                                    updateUI(user);
-                                } else {
-                                    Toast.makeText(RegisterActivity.this, "Already register account", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            }
-                        });
-
-//                        Toast.makeText(this, "Login", Toast.LENGTH_SHORT).show();
+                        boolean newuser = task.getResult().getAdditionalUserInfo().isNewUser(); // checking the user is new or already have a account
+//                        Log.d("userStatusId", "firebaseAuthWithGoogle: "+newuser);
+                        if (newuser) {
+                            updateUI(user);
+                        } else {
+                            Toast.makeText(this, "Welcome back "+user.getDisplayName(), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
                     } else {
                         // If sign in fails, display a message to the user.
 //                            updateUI(null);

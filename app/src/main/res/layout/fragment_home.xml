@@ -184,8 +184,8 @@
                 <ImageView
                     style="@style/iconTint"
                     android:id="@+id/search_btn_id"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
                     android:layout_marginEnd="10dp"
                     android:contentDescription="@string/search_btn_desc"
                     android:src="@drawable/search_icon"

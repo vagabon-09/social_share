@@ -1,5 +1,6 @@
 package com.sharebysocial.com.Fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -256,12 +257,9 @@ public class AddFragment extends Fragment {
 
     public void SendData(int position, String userName) {
         AddAccountDb accountDb = new AddAccountDb(profile_spinner.getItemAtPosition(position).toString(), userName, getContext());
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                profileFindId.setText("");
-                profile_spinner.setSelection(0);
-            }
+        new Handler().postDelayed(() -> {
+            profileFindId.setText("");
+            profile_spinner.setSelection(0);
         }, 1000);
 
     }
@@ -302,6 +300,7 @@ public class AddFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectProfile(position, view);
                 p = position;
+                ((TextView)parent.getChildAt(0)).setTextColor(Color.BLACK);
             }
 
             @Override

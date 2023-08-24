@@ -29,6 +29,7 @@
 
             <EditText
                 android:id="@+id/friendSearchViewId"
+                style="@style/textColor"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:autofillHints="false"
@@ -38,14 +39,15 @@
                 android:paddingStart="@dimen/_10sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/searchBtn"
+                app:layout_constraintHorizontal_bias="0.43"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                style="@style/iconTint"
                 android:id="@+id/searchBtn"
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
+                style="@style/iconTint"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
                 android:layout_margin="@dimen/_3sdp"
                 android:contentDescription="@string/image_search_button"
                 android:src="@drawable/search_icon"
@@ -60,7 +62,7 @@
     <TextView
         style="@style/textColor"
         android:layout_marginTop="@dimen/_13sdp"
-        android:layout_marginStart="@dimen/_13sdp"
+        android:layout_marginStart="@dimen/_20sdp"
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
